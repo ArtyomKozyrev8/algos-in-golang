@@ -1,1 +1,59 @@
 package algos_in_golang
+
+import "strconv"
+
+type Node struct {
+	value int
+	next  *Node
+}
+
+type LinkedList struct {
+	head *Node
+}
+
+// AddNode adds new node to LinkedList
+func (list *LinkedList) AddNode(value int) {
+	if list.head == nil {
+		list.head = &Node{value, nil}
+	} else {
+		cur := list.head
+		for {
+			if cur.next == nil {
+				cur.next = &Node{value, nil}
+				break
+			}
+			cur = cur.next
+		}
+	}
+}
+
+// PrintList converts nodes in LinkedList to string
+func (list *LinkedList) PrintList() string {
+	res := "LinkedList: "
+	cur := list.head
+
+	for cur != nil {
+		res += strconv.Itoa(cur.value)
+		if cur.next != nil {
+			res += ","
+		}
+		cur = cur.next
+	}
+
+	return res
+}
+
+// ReverseList reverse order of nodes in LinkedList
+func (list *LinkedList) ReverseList() {
+	var prev *Node
+	cur := list.head
+
+	for cur != nil {
+		temp := cur.next
+		cur.next = prev
+		prev = cur
+		cur = temp
+	}
+
+	list.head = prev
+}
