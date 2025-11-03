@@ -67,3 +67,76 @@ func TestReverseList(t *testing.T) {
 		}
 	}
 }
+
+func TestGetNodeByIndex(t *testing.T) {
+	list := LinkedList{}
+	if list.GetNodeByIndex(0) != nil {
+		t.Errorf("GetNodeByIndex(0) is not nil")
+	}
+
+	list.AddNode(1)
+	if list.GetNodeByIndex(0).value != 1 {
+		t.Errorf("GetNodeByIndex(0) is not 1")
+	}
+
+	list.AddNode(2)
+	if list.GetNodeByIndex(0).value != 1 {
+		t.Errorf("GetNodeByIndex(0) is not 1")
+	}
+	if list.GetNodeByIndex(1).value != 2 {
+		t.Errorf("GetNodeByIndex(1) is not 2")
+	}
+
+	nodes := []int{
+		3, 4, 5,
+	}
+	for _, node := range nodes {
+		list.AddNode(node)
+	}
+
+	expectedResults := []int{1, 2, 3, 4, 5}
+
+	for index, value := range expectedResults {
+		if list.GetNodeByIndex(index).value != value {
+			t.Errorf("GetNodeByIndex(%d) is not %d", index, list.GetNodeByIndex(index).value)
+		}
+	}
+
+	if list.GetNodeByIndex(10) != nil {
+		t.Errorf("GetNodeByIndex(10) is not nil")
+	}
+}
+
+func TestGetNodeByValue(t *testing.T) {
+	list := LinkedList{}
+	if list.GetNodeByValue(10) != nil {
+		t.Errorf("GetNodeByValue(10) is not nil")
+	}
+
+	list.AddNode(1)
+	if list.GetNodeByValue(1).value != 1 {
+		t.Errorf("GetNodeByValue(1) is not 1")
+	}
+
+	list.AddNode(2)
+	if list.GetNodeByValue(2).value != 2 {
+		t.Errorf("GetNodeByValue(2) is not 2")
+	}
+
+	nodes := []int{3, 4, 5}
+	for _, node := range nodes {
+		list.AddNode(node)
+	}
+
+	nodes = []int{1, 2, 3, 4, 5}
+
+	for _, value := range nodes {
+		if list.GetNodeByValue(value).value != value {
+			t.Errorf("GetNodeByValue(%d) is not %d", value, value)
+		}
+	}
+
+	if list.GetNodeByValue(10) != nil {
+		t.Errorf("GetNodeByIndex(10) is not nil")
+	}
+}

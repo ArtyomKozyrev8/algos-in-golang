@@ -57,3 +57,29 @@ func (list *LinkedList) ReverseList() {
 
 	list.head = prev
 }
+
+// GetNodeByIndex returns Node from LinkedList by index
+func (list *LinkedList) GetNodeByIndex(index int) *Node {
+	cur := list.head
+	curIndex := 0
+	for cur != nil {
+		if curIndex == index {
+			return cur
+		}
+		cur = cur.next
+		curIndex += 1
+	}
+	return nil
+}
+
+// GetNodeByValue returns Node from LinkedList by value
+func (list *LinkedList) GetNodeByValue(value int) *Node {
+	cur := list.head
+	for cur != nil {
+		if cur.value == value {
+			return cur
+		}
+		cur = cur.next
+	}
+	return nil
+}
