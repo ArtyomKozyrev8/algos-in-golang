@@ -224,3 +224,51 @@ func TestRemoveNodeFromHead(t *testing.T) {
 		}
 	}
 }
+
+func TestRemoveNodeFromTail(t *testing.T) {
+	list := LinkedList{}
+	list.RemoveNodeFromTail()
+	if list.head != nil {
+		t.Errorf("head of LinkedList is not nil")
+	}
+
+	list.AddNodeToTail(1)
+	removedNode := list.RemoveNodeFromTail()
+	if removedNode == nil {
+		t.Errorf("removedNode is nil")
+	} else {
+		if removedNode.value != 1 {
+			t.Errorf("removedNode value is not 1")
+		}
+		if list.head != nil {
+			t.Errorf("head of LinkedList is not nil")
+		}
+	}
+
+	list.AddNodeToTail(1)
+	list.AddNodeToTail(2)
+	removedNode = list.RemoveNodeFromTail()
+	if removedNode == nil {
+		t.Errorf("removedNode is nil")
+	} else {
+		if removedNode.value != 2 {
+			t.Errorf("removedNode value is not 2")
+		}
+	}
+
+	list.AddNodeToTail(2)
+	list.AddNodeToTail(3)
+	list.AddNodeToHead(4)
+	removedNode = list.RemoveNodeFromTail()
+	if removedNode == nil {
+		t.Errorf("removedNode is nil")
+	} else {
+		if removedNode.value != 3 {
+			t.Errorf("removedNode value is not3")
+		}
+	}
+	listStr := list.PrintList()
+	if listStr != "LinkedList: 4,1,2" {
+		t.Errorf("%s != LinkedList: 4,1,2", listStr)
+	}
+}
