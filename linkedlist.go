@@ -11,8 +11,8 @@ type LinkedList struct {
 	head *Node
 }
 
-// AddNode adds new node to LinkedList
-func (list *LinkedList) AddNode(value int) {
+// AddNodeToTail adds new node to LinkedList
+func (list *LinkedList) AddNodeToTail(value int) {
 	if list.head == nil {
 		list.head = &Node{value, nil}
 	} else {
@@ -91,5 +91,40 @@ func (list *LinkedList) AddNodeToHead(value int) {
 	} else {
 		cur := list.head
 		list.head = &Node{value, cur}
+	}
+}
+
+// RemoveNodeFromHead removes and returns Node from tail of LinkedList
+func (list *LinkedList) RemoveNodeFromHead() *Node {
+	if list.head == nil {
+		return nil
+	}
+
+	cur := list.head
+	curNext := cur.next
+	list.head = curNext
+
+	return cur
+}
+
+func (list *LinkedList) RemoveNodeFromTail() *Node {
+	if list.head == nil {
+		return nil
+	}
+
+	var prev *Node
+	cur := list.head
+	for {
+		if cur.next != nil {
+			prev = cur
+			cur = cur.next
+		} else {
+			if prev == nil {
+				list.head = nil
+			} else {
+				prev.next = nil
+			}
+			return cur
+		}
 	}
 }

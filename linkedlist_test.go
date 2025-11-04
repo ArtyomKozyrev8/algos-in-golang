@@ -2,9 +2,9 @@ package algos_in_golang
 
 import "testing"
 
-func TestAddNode(t *testing.T) {
+func TestAddNodeToTail(t *testing.T) {
 	list := LinkedList{}
-	list.AddNode(1)
+	list.AddNodeToTail(1)
 
 	if list.head == nil {
 		t.Errorf("head of LinkedList is nil")
@@ -27,7 +27,7 @@ func TestAddNode(t *testing.T) {
 	}
 
 	for i := 0; i < len(nodes); i++ {
-		list.AddNode(nodes[i])
+		list.AddNodeToTail(nodes[i])
 		if list.PrintList() != expectedResults[i] {
 			t.Errorf("%s != %s", list.PrintList(), expectedResults[i])
 		}
@@ -57,7 +57,7 @@ func TestReverseList(t *testing.T) {
 	}
 
 	for i := 0; i < len(nodes); i++ {
-		list.AddNode(nodes[i])
+		list.AddNodeToTail(nodes[i])
 		list.ReverseList()
 		if list.PrintList() != expectedResults[i] {
 			t.Errorf("%s != %s", list.PrintList(), expectedResults[i])
@@ -74,12 +74,12 @@ func TestGetNodeByIndex(t *testing.T) {
 		t.Errorf("GetNodeByIndex(0) is not nil")
 	}
 
-	list.AddNode(1)
+	list.AddNodeToTail(1)
 	if list.GetNodeByIndex(0).value != 1 {
 		t.Errorf("GetNodeByIndex(0) is not 1")
 	}
 
-	list.AddNode(2)
+	list.AddNodeToTail(2)
 	if list.GetNodeByIndex(0).value != 1 {
 		t.Errorf("GetNodeByIndex(0) is not 1")
 	}
@@ -91,7 +91,7 @@ func TestGetNodeByIndex(t *testing.T) {
 		3, 4, 5,
 	}
 	for _, node := range nodes {
-		list.AddNode(node)
+		list.AddNodeToTail(node)
 	}
 
 	expectedResults := []int{1, 2, 3, 4, 5}
@@ -113,19 +113,19 @@ func TestGetNodeByValue(t *testing.T) {
 		t.Errorf("GetNodeByValue(10) is not nil")
 	}
 
-	list.AddNode(1)
+	list.AddNodeToTail(1)
 	if list.GetNodeByValue(1).value != 1 {
 		t.Errorf("GetNodeByValue(1) is not 1")
 	}
 
-	list.AddNode(2)
+	list.AddNodeToTail(2)
 	if list.GetNodeByValue(2).value != 2 {
 		t.Errorf("GetNodeByValue(2) is not 2")
 	}
 
 	nodes := []int{3, 4, 5}
 	for _, node := range nodes {
-		list.AddNode(node)
+		list.AddNodeToTail(node)
 	}
 
 	nodes = []int{1, 2, 3, 4, 5}
@@ -166,7 +166,7 @@ func TestAddNodeToHead(t *testing.T) {
 	if resStr != "LinkedList: 3,2,1" {
 		t.Errorf("%s != LinkedList: 3,2,1", resStr)
 	}
-	list.AddNode(4)
+	list.AddNodeToTail(4)
 	resStr = list.PrintList()
 	if resStr != "LinkedList: 3,2,1,4" {
 		t.Errorf("%s != LinkedList: 3,2,1,4", resStr)
