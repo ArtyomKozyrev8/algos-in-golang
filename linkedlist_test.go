@@ -272,3 +272,28 @@ func TestRemoveNodeFromTail(t *testing.T) {
 		t.Errorf("%s != LinkedList: 4,1,2", listStr)
 	}
 }
+
+func TestLength(t *testing.T) {
+	list := LinkedList{}
+	if list.Length() != 0 {
+		t.Errorf("length of LinkedList is not 0")
+	}
+
+	values := []int{1, 2, 3, 4, 5}
+
+	for _, value := range values {
+		list.AddNodeToTail(value)
+		if list.Length() != value {
+			t.Errorf("length of LinkedList is not %d", value)
+		}
+	}
+
+	list.AddNodeToHead(6)
+	if list.Length() != 6 {
+		t.Errorf("length of LinkedList is not 6")
+	}
+	listStr := list.PrintList()
+	if listStr != "LinkedList: 6,1,2,3,4,5" {
+		t.Errorf("%s != LinkedList: 6,1,2,3,4,5", listStr)
+	}
+}

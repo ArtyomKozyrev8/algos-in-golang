@@ -94,7 +94,7 @@ func (list *LinkedList) AddNodeToHead(value int) {
 	}
 }
 
-// RemoveNodeFromHead removes and returns Node from tail of LinkedList
+// RemoveNodeFromHead removes and returns Node from head of LinkedList
 func (list *LinkedList) RemoveNodeFromHead() *Node {
 	if list.head == nil {
 		return nil
@@ -107,6 +107,7 @@ func (list *LinkedList) RemoveNodeFromHead() *Node {
 	return cur
 }
 
+// RemoveNodeFromTail removes and returns Node from tail of LinkedList
 func (list *LinkedList) RemoveNodeFromTail() *Node {
 	if list.head == nil {
 		return nil
@@ -127,4 +128,17 @@ func (list *LinkedList) RemoveNodeFromTail() *Node {
 			return cur
 		}
 	}
+}
+
+// Length returns number of Nodes in LinkedList
+func (list *LinkedList) Length() int {
+	num := 0
+	cur := list.head
+
+	for cur != nil {
+		cur = cur.next
+		num += 1
+	}
+
+	return num
 }
