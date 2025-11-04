@@ -1,6 +1,9 @@
 package algos_in_golang
 
-import "strconv"
+import (
+	"errors"
+	"strconv"
+)
 
 type Node struct {
 	value int
@@ -141,4 +144,36 @@ func (list *LinkedList) Length() int {
 	}
 
 	return num
+}
+
+// RemoveNodeByIndex removes Node from LinkedList based on index
+func (list *LinkedList) RemoveNodeByIndex(index int) (error, *Node) {
+	if index < 0 {
+		return errors.New("index can't be negative number"), nil
+	}
+
+	if list.head == nil {
+		return errors.New("can't remove from empty list"), nil
+	}
+
+	curIndex := 0
+	var prev *Node
+	cur := list.head
+
+	for cur != nil {
+		if curIndex == index {
+			if prev == nil {
+				list.head = cur.next
+			} else {
+				prev.next = cur.next
+			}
+			return nil, cur
+		} else {
+			prev = cur
+			cur = cur.next
+			curIndex += 1
+		}
+	}
+
+	return errors.New("index out of range"), nil
 }

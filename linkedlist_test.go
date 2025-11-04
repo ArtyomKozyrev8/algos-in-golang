@@ -297,3 +297,119 @@ func TestLength(t *testing.T) {
 		t.Errorf("%s != LinkedList: 6,1,2,3,4,5", listStr)
 	}
 }
+
+func TestRemoveNodeByIndex(t *testing.T) {
+	list := LinkedList{}
+	err, removedNode := list.RemoveNodeByIndex(0)
+	if err == nil || removedNode != nil {
+		t.Errorf("RemoveNodeByIndex(0) is not nil or did not raise an error")
+	}
+
+	list.AddNodeToTail(1)
+	err, removedNode = list.RemoveNodeByIndex(-1)
+	if err == nil || removedNode != nil {
+		t.Errorf("RemoveNodeByIndex(-1) is not nil or did not raise an error")
+	}
+
+	err, removedNode = list.RemoveNodeByIndex(1)
+	if err == nil || removedNode != nil {
+		t.Errorf("RemoveNodeByIndex(1) is not nil or did not raise an error")
+	}
+
+	err, removedNode = list.RemoveNodeByIndex(0)
+	if err != nil || removedNode.value != 1 || list.PrintList() != "LinkedList: " {
+		t.Errorf("RemoveNodeByIndex(0) is not nil or did not raise an error or not equal 1")
+	}
+
+	nodes := [][]int{
+		{1, 2},
+		{1, 2},
+		{1, 2, 3},
+		{1, 2, 3},
+		{1, 2, 3},
+		{1, 2, 3, 4},
+		{1, 2, 3, 4},
+		{1, 2, 3, 4},
+		{1, 2, 3, 4},
+		{1, 2, 3, 4, 5},
+		{1, 2, 3, 4, 5},
+		{1, 2, 3, 4, 5},
+		{1, 2, 3, 4, 5},
+		{1, 2, 3, 4, 5},
+	}
+	indexToRemoves := []int{
+		0,
+		1,
+		0,
+		1,
+		2,
+		0,
+		1,
+		2,
+		3,
+		0,
+		1,
+		2,
+		3,
+		4,
+	}
+	expectedRemoveNodeValues := []int{
+		1,
+		2,
+		1,
+		2,
+		3,
+		1,
+		2,
+		3,
+		4,
+		1,
+		2,
+		3,
+		4,
+		5,
+	}
+	expectedStrRes := []string{
+		"LinkedList: 2",
+		"LinkedList: 1",
+		"LinkedList: 2,3",
+		"LinkedList: 1,3",
+		"LinkedList: 1,2",
+		"LinkedList: 2,3,4",
+		"LinkedList: 1,3,4",
+		"LinkedList: 1,2,4",
+		"LinkedList: 1,2,3",
+		"LinkedList: 2,3,4,5",
+		"LinkedList: 1,3,4,5",
+		"LinkedList: 1,2,4,5",
+		"LinkedList: 1,2,3,5",
+		"LinkedList: 1,2,3,4",
+	}
+
+	for i := 0; i < len(nodes); i++ {
+		list = LinkedList{}
+		for j := 0; j < len(nodes[i]); j++ {
+			list.AddNodeToTail(nodes[i][j])
+		}
+		_, removedNodeRes := list.RemoveNodeByIndex(indexToRemoves[i])
+		if removedNodeRes == nil {
+			t.Errorf("RemoveNodeByIndex(%d) is nil", indexToRemoves[i])
+		} else {
+			if removedNodeRes.value != expectedRemoveNodeValues[i] {
+				t.Errorf(
+					"RemoveNodeByIndex(%d) value %d is not equal to %d",
+					indexToRemoves[i],
+					removedNodeRes.value,
+					expectedRemoveNodeValues[i],
+				)
+			}
+			if list.PrintList() != expectedStrRes[i] {
+				t.Errorf(
+					"RemoveNodeByIndex(%d) is not equal to %s",
+					indexToRemoves[i],
+					expectedStrRes[i],
+				)
+			}
+		}
+	}
+}
