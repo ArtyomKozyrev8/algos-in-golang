@@ -172,3 +172,55 @@ func TestAddNodeToHead(t *testing.T) {
 		t.Errorf("%s != LinkedList: 3,2,1,4", resStr)
 	}
 }
+
+func TestRemoveNodeFromHead(t *testing.T) {
+	list := LinkedList{}
+	if list.RemoveNodeFromHead() != nil {
+		t.Errorf("RemoveNodeFromHead() is not nil")
+	}
+	if list.head != nil {
+		t.Errorf("head of LinkedList is not nil")
+	}
+
+	list.AddNodeToHead(1)
+	if list.RemoveNodeFromHead().value != 1 {
+		t.Errorf("remove node value is not 1")
+	}
+	if list.head != nil {
+		t.Errorf("head of LinkedList is not nil")
+	}
+
+	list.AddNodeToTail(1)
+	list.AddNodeToTail(2)
+	if list.RemoveNodeFromHead().value != 1 {
+		t.Errorf("remove node value is not 1")
+	}
+
+	list.AddNodeToTail(1)
+	list.AddNodeToTail(3)
+	if list.RemoveNodeFromHead().value != 2 {
+		t.Errorf("remove node value is not 2")
+	}
+	resStr := list.PrintList()
+	if resStr != "LinkedList: 1,3" {
+		t.Errorf("%s != LinkedList: 1,3", resStr)
+	}
+
+	list.AddNodeToTail(4)
+	list.AddNodeToHead(5)
+	removedNode := list.RemoveNodeFromHead()
+	if removedNode == nil {
+		t.Errorf("removedNode is nil")
+	} else {
+		if removedNode.value != 5 {
+			t.Errorf("removedNode value is not 5")
+		}
+		if removedNode.next.value != 1 {
+			t.Errorf("removedNode next node value is not 1")
+		}
+		resStr = list.PrintList()
+		if resStr != "LinkedList: 1,3,4" {
+			t.Errorf("%s != LinkedList: 1,3,4", resStr)
+		}
+	}
+}
