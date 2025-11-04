@@ -140,3 +140,35 @@ func TestGetNodeByValue(t *testing.T) {
 		t.Errorf("GetNodeByIndex(10) is not nil")
 	}
 }
+
+func TestAddNodeToHead(t *testing.T) {
+	list := LinkedList{}
+	list.AddNodeToHead(1)
+	if list.head == nil {
+		t.Errorf("head of LinkedList is nil")
+	}
+	if list.head.value != 1 {
+		t.Errorf("value of head node in LinkedList is not 1")
+	}
+	list.AddNodeToHead(2)
+	if list.head.value != 2 {
+		t.Errorf("value of head node in LinkedList is not 2")
+	}
+	resStr := list.PrintList()
+	if resStr != "LinkedList: 2,1" {
+		t.Errorf("%s != LinkedList: 2,1", resStr)
+	}
+	list.AddNodeToHead(3)
+	if list.head.value != 3 {
+		t.Errorf("value of head node in LinkedList is not 3")
+	}
+	resStr = list.PrintList()
+	if resStr != "LinkedList: 3,2,1" {
+		t.Errorf("%s != LinkedList: 3,2,1", resStr)
+	}
+	list.AddNode(4)
+	resStr = list.PrintList()
+	if resStr != "LinkedList: 3,2,1,4" {
+		t.Errorf("%s != LinkedList: 3,2,1,4", resStr)
+	}
+}

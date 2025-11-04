@@ -83,3 +83,13 @@ func (list *LinkedList) GetNodeByValue(value int) *Node {
 	}
 	return nil
 }
+
+// AddNodeToHead adds new node to the head of LinkedList
+func (list *LinkedList) AddNodeToHead(value int) {
+	if list.head == nil {
+		list.head = &Node{value, nil}
+	} else {
+		cur := list.head
+		list.head = &Node{value, cur}
+	}
+}
