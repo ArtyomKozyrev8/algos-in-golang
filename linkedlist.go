@@ -177,3 +177,39 @@ func (list *LinkedList) RemoveNodeByIndex(index int) (error, *Node) {
 
 	return errors.New("index out of range"), nil
 }
+
+// SortWayOne - my first idea how to sort LinkedList
+func (list *LinkedList) SortWayOne(orderAsc bool) {
+	sortedList := LinkedList{}
+
+	for list.head != nil {
+		cur := list.head
+		curIndex := 0
+		curMinIndex := 0
+		curMinValue := list.head.value
+		for cur != nil {
+			if cur.next == nil {
+				break
+			} else {
+				curIndex += 1
+				if orderAsc == true {
+					if curMinValue >= cur.next.value {
+						curMinValue = cur.next.value
+						curMinIndex = curIndex
+					}
+				} else {
+					if curMinValue <= cur.next.value {
+						curMinValue = cur.next.value
+						curMinIndex = curIndex
+					}
+				}
+				cur = cur.next
+			}
+		}
+		_, nodeMin := list.RemoveNodeByIndex(curMinIndex)
+		sortedList.AddNodeToTail(nodeMin.value)
+	}
+
+	headNode := sortedList.head
+	list.head = headNode
+}

@@ -413,3 +413,47 @@ func TestRemoveNodeByIndex(t *testing.T) {
 		}
 	}
 }
+
+func TestSortWayOneAsc(t *testing.T) {
+	input := struct {
+		nodes          [][]int
+		expectedValues []string
+	}{
+		[][]int{
+			{},
+			{1},
+			{1, 0},
+			{0, 1},
+			{0, 1, 2},
+			{2, 0, 1},
+			{2, 1, 0},
+			{4, 4, 0, 2, 1, 3, 9},
+			{0, 0, 0, 2, 1, 3, 9, 4, 3, 5, 6, 1, 2, 5},
+			{3, 4, 1, 3, 2, 5, 1, 6, 7, 1, 7, 1, 0, 3, 4, 3, 5, 6, 7, 8, 9, 4, 4, 2, 1, 0},
+		},
+		[]string{
+			"LinkedList: ",
+			"LinkedList: 1",
+			"LinkedList: 0,1",
+			"LinkedList: 0,1",
+			"LinkedList: 0,1,2",
+			"LinkedList: 0,1,2",
+			"LinkedList: 0,1,2",
+			"LinkedList: 0,1,2,3,4,4,9",
+			"LinkedList: 0,0,0,1,1,2,2,3,3,4,5,5,6,9",
+			"LinkedList: 0,0,1,1,1,1,1,2,2,3,3,3,3,4,4,4,4,5,5,6,6,7,7,7,8,9",
+		},
+	}
+
+	for i := 0; i < len(input.nodes); i++ {
+		list := LinkedList{}
+		for j := 0; j < len(input.nodes[i]); j++ {
+			list.AddNodeToTail(input.nodes[i][j])
+		}
+		list.SortWayOne(true)
+		resStr := list.PrintList()
+		if resStr != input.expectedValues[i] {
+			t.Errorf("%s != %s", resStr, input.expectedValues[i])
+		}
+	}
+}
