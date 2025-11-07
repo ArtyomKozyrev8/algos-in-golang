@@ -185,29 +185,78 @@ func (list *LinkedList) SortWayOne(orderAsc bool) {
 	for list.head != nil {
 		cur := list.head
 		curIndex := 0
-		curMinIndex := 0
-		curMinValue := list.head.value
+		curExtremumIndex := 0
+		curExtremumValue := list.head.value
 		for cur != nil {
 			if cur.next == nil {
 				break
 			} else {
 				curIndex += 1
 				if orderAsc == true {
-					if curMinValue >= cur.next.value {
-						curMinValue = cur.next.value
-						curMinIndex = curIndex
+					if curExtremumValue >= cur.next.value {
+						curExtremumValue = cur.next.value
+						curExtremumIndex = curIndex
 					}
 				} else {
-					if curMinValue <= cur.next.value {
-						curMinValue = cur.next.value
-						curMinIndex = curIndex
+					if curExtremumValue <= cur.next.value {
+						curExtremumValue = cur.next.value
+						curExtremumIndex = curIndex
 					}
 				}
 				cur = cur.next
 			}
 		}
-		_, nodeMin := list.RemoveNodeByIndex(curMinIndex)
+		_, nodeMin := list.RemoveNodeByIndex(curExtremumIndex)
 		sortedList.AddNodeToTail(nodeMin.value)
+	}
+
+	headNode := sortedList.head
+	list.head = headNode
+}
+
+// SortWayTwo - a little bit faster than SortWayOne, but idea is the same
+func (list *LinkedList) SortWayTwo(orderAsc bool) {
+	sortedList := LinkedList{} // add nodes to this new list
+
+	for list.head != nil {
+		// we need curExtremumPrevNode to remove curExtremumNode
+		// without additional traverse in the list
+		var curExtremumPrevNode *Node
+		var curExtremumNode *Node
+		curExtremumNode = list.head
+
+		var prev *Node
+		cur := list.head
+
+		for cur != nil {
+			if orderAsc {
+				// try to get new min/max value
+				if cur.value >= curExtremumNode.value {
+					curExtremumPrevNode = prev
+					curExtremumNode = cur
+				}
+			} else {
+				// try to get new min/max value
+				if cur.value <= curExtremumNode.value {
+					curExtremumPrevNode = prev
+					curExtremumNode = cur
+				}
+			}
+
+			// we reached the end of the list, let's remove min/max Node
+			if cur.next == nil {
+				if curExtremumPrevNode != nil {
+					curExtremumPrevNode.next = curExtremumNode.next
+				} else {
+					list.head = curExtremumNode.next
+				}
+				break
+			} else {
+				prev = cur
+				cur = cur.next
+			}
+		}
+		sortedList.AddNodeToHead(curExtremumNode.value)
 	}
 
 	headNode := sortedList.head
