@@ -193,12 +193,12 @@ func (list *LinkedList) SortWayOne(orderAsc bool) {
 			} else {
 				curIndex += 1
 				if orderAsc == true {
-					if curExtremumValue >= cur.next.value {
+					if curExtremumValue <= cur.next.value {
 						curExtremumValue = cur.next.value
 						curExtremumIndex = curIndex
 					}
 				} else {
-					if curExtremumValue <= cur.next.value {
+					if curExtremumValue >= cur.next.value {
 						curExtremumValue = cur.next.value
 						curExtremumIndex = curIndex
 					}
@@ -206,8 +206,8 @@ func (list *LinkedList) SortWayOne(orderAsc bool) {
 				cur = cur.next
 			}
 		}
-		_, nodeMin := list.RemoveNodeByIndex(curExtremumIndex)
-		sortedList.AddNodeToTail(nodeMin.value)
+		_, nodeExtremum := list.RemoveNodeByIndex(curExtremumIndex)
+		sortedList.AddNodeToHead(nodeExtremum.value)
 	}
 
 	headNode := sortedList.head
