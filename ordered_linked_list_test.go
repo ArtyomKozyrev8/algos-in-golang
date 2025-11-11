@@ -99,3 +99,66 @@ func TestOrderedAscLinkedList_Append(t *testing.T) {
 		}
 	}
 }
+
+func TestOrderedAscLinkedList_RemoveByValue(t *testing.T) {
+	vars := struct {
+		values      [][]int
+		removeValue []int
+		fineResult  []int
+		errResults  []error
+		resStr      []string
+	}{
+		values: [][]int{
+			{}, {3}, {3}, {2, 1}, {1, 2}, {1, 2}, {3, 4, 5}, {4, 3, 5}, {5, 3, 4}, {3, 4, 5},
+		},
+		removeValue: []int{
+			1, 3, 9, 1, 2, 9, 3, 4, 5, 9,
+		},
+		fineResult: []int{
+			0, 3, 0, 1, 2, 0, 3, 4, 5, 0,
+		},
+		errResults: []error{
+			&OLLError{"value 1 not found"},
+			nil,
+			&OLLError{"value 9 not found"},
+			nil,
+			nil,
+			&OLLError{"value 9 not found"},
+			nil,
+			nil,
+			nil,
+			&OLLError{"value 9 not found"},
+		},
+		resStr: []string{
+			"OAscLL: ",
+			"OAscLL: ",
+			"OAscLL: 3",
+			"OAscLL: 2",
+			"OAscLL: 1",
+			"OAscLL: 1,2",
+			"OAscLL: 4,5",
+			"OAscLL: 3,5",
+			"OAscLL: 3,4",
+			"OAscLL: 3,4,5",
+		},
+	}
+	for i := 0; i < len(vars.values); i++ {
+		list := OrderedAscLinkedList{}
+		for j := 0; j < len(vars.values[i]); j++ {
+			list.Append(vars.values[i][j])
+		}
+		res, exc := list.RemoveByValue(vars.removeValue[i])
+
+		if res != vars.fineResult[i] {
+			t.Error("Expected ", vars.fineResult[i], "got", res)
+		}
+
+		if fmt.Sprintf("%v", exc) != fmt.Sprintf("%v", vars.errResults[i]) {
+			t.Error(fmt.Sprintf("Expected '%v' != '%v'", vars.errResults[i], exc))
+		}
+
+		if fmt.Sprintf("%v", &list) != vars.resStr[i] {
+			t.Error(fmt.Sprintf("Expected '%v' != '%v'", vars.resStr[i], &list))
+		}
+	}
+}

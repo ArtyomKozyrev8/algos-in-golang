@@ -1,6 +1,16 @@
 package algos_in_golang
 
-import "fmt"
+import (
+	"fmt"
+)
+
+type OLLError struct {
+	value string
+}
+
+func (e *OLLError) Error() string {
+	return fmt.Sprintf("OLLError: %v", e.value)
+}
 
 type OrderedAscLinkedList struct {
 	head *Node
@@ -22,6 +32,27 @@ func (list *OrderedAscLinkedList) String() string {
 	}
 
 	return res
+}
+
+func (list *OrderedAscLinkedList) RemoveByValue(value int) (int, error) {
+	var prev *Node
+	cur := list.head
+
+	for cur != nil {
+		if cur.value == value {
+			if prev != nil {
+				prev.next = cur.next
+			} else {
+				list.head = cur.next
+			}
+			return cur.value, nil
+		} else {
+			prev = cur
+			cur = cur.next
+		}
+	}
+
+	return 0, &OLLError{fmt.Sprintf("value %d not found", value)}
 }
 
 func (list *OrderedAscLinkedList) Append(value int) {
