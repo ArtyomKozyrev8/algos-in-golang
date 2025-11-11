@@ -30,8 +30,8 @@ func (list *LinkedList) AddNodeToTail(value int) {
 	}
 }
 
-// PrintList converts nodes in LinkedList to string
-func (list *LinkedList) PrintList() string {
+// String converts nodes in LinkedList to string
+func (list *LinkedList) String() string {
 	res := "LinkedList: "
 	cur := list.head
 

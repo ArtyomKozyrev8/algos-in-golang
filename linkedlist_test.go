@@ -1,6 +1,9 @@
 package algos_in_golang
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestAddNodeToTail(t *testing.T) {
 	list := LinkedList{}
@@ -14,7 +17,7 @@ func TestAddNodeToTail(t *testing.T) {
 		t.Errorf("value of head node in LinkedList is not 1")
 	}
 
-	res := list.PrintList()
+	res := fmt.Sprintf("%v", &list)
 	if res != "LinkedList: 1" {
 		t.Errorf("%s != LinkedList: 1", res)
 	}
@@ -28,8 +31,8 @@ func TestAddNodeToTail(t *testing.T) {
 
 	for i := 0; i < len(nodes); i++ {
 		list.AddNodeToTail(nodes[i])
-		if list.PrintList() != expectedResults[i] {
-			t.Errorf("%s != %s", list.PrintList(), expectedResults[i])
+		if fmt.Sprintf("%v", &list) != expectedResults[i] {
+			t.Errorf("%s != %s", fmt.Sprintf("%v", &list), expectedResults[i])
 		}
 	}
 }
@@ -41,7 +44,7 @@ func TestReverseList(t *testing.T) {
 		t.Errorf("head of LinkedList is not nil")
 	}
 
-	res := list.PrintList()
+	res := fmt.Sprintf("%v", &list)
 	if res != "LinkedList: " {
 		t.Errorf("%s != LinkedList: ", res)
 	}
@@ -59,8 +62,8 @@ func TestReverseList(t *testing.T) {
 	for i := 0; i < len(nodes); i++ {
 		list.AddNodeToTail(nodes[i])
 		list.ReverseList()
-		if list.PrintList() != expectedResults[i] {
-			t.Errorf("%s != %s", list.PrintList(), expectedResults[i])
+		if fmt.Sprintf("%v", &list) != expectedResults[i] {
+			t.Errorf("%s != %s", fmt.Sprintf("%v", &list), expectedResults[i])
 		}
 		if list.head.value != expectedHeadValue[i] {
 			t.Errorf("%d != %d", list.head.value, expectedHeadValue[i])
@@ -154,7 +157,7 @@ func TestAddNodeToHead(t *testing.T) {
 	if list.head.value != 2 {
 		t.Errorf("value of head node in LinkedList is not 2")
 	}
-	resStr := list.PrintList()
+	resStr := fmt.Sprintf("%v", &list)
 	if resStr != "LinkedList: 2,1" {
 		t.Errorf("%s != LinkedList: 2,1", resStr)
 	}
@@ -162,12 +165,12 @@ func TestAddNodeToHead(t *testing.T) {
 	if list.head.value != 3 {
 		t.Errorf("value of head node in LinkedList is not 3")
 	}
-	resStr = list.PrintList()
+	resStr = fmt.Sprintf("%v", &list)
 	if resStr != "LinkedList: 3,2,1" {
 		t.Errorf("%s != LinkedList: 3,2,1", resStr)
 	}
 	list.AddNodeToTail(4)
-	resStr = list.PrintList()
+	resStr = fmt.Sprintf("%v", &list)
 	if resStr != "LinkedList: 3,2,1,4" {
 		t.Errorf("%s != LinkedList: 3,2,1,4", resStr)
 	}
@@ -201,7 +204,7 @@ func TestRemoveNodeFromHead(t *testing.T) {
 	if list.RemoveNodeFromHead().value != 2 {
 		t.Errorf("remove node value is not 2")
 	}
-	resStr := list.PrintList()
+	resStr := fmt.Sprintf("%v", &list)
 	if resStr != "LinkedList: 1,3" {
 		t.Errorf("%s != LinkedList: 1,3", resStr)
 	}
@@ -218,7 +221,7 @@ func TestRemoveNodeFromHead(t *testing.T) {
 		if removedNode.next.value != 1 {
 			t.Errorf("removedNode next node value is not 1")
 		}
-		resStr = list.PrintList()
+		resStr = fmt.Sprintf("%v", &list)
 		if resStr != "LinkedList: 1,3,4" {
 			t.Errorf("%s != LinkedList: 1,3,4", resStr)
 		}
@@ -267,7 +270,7 @@ func TestRemoveNodeFromTail(t *testing.T) {
 			t.Errorf("removedNode value is not3")
 		}
 	}
-	listStr := list.PrintList()
+	listStr := fmt.Sprintf("%v", &list)
 	if listStr != "LinkedList: 4,1,2" {
 		t.Errorf("%s != LinkedList: 4,1,2", listStr)
 	}
@@ -292,7 +295,7 @@ func TestLength(t *testing.T) {
 	if list.Length() != 6 {
 		t.Errorf("length of LinkedList is not 6")
 	}
-	listStr := list.PrintList()
+	listStr := fmt.Sprintf("%v", &list)
 	if listStr != "LinkedList: 6,1,2,3,4,5" {
 		t.Errorf("%s != LinkedList: 6,1,2,3,4,5", listStr)
 	}
@@ -317,7 +320,7 @@ func TestRemoveNodeByIndex(t *testing.T) {
 	}
 
 	err, removedNode = list.RemoveNodeByIndex(0)
-	if err != nil || removedNode.value != 1 || list.PrintList() != "LinkedList: " {
+	if err != nil || removedNode.value != 1 || fmt.Sprintf("%v", &list) != "LinkedList: " {
 		t.Errorf("RemoveNodeByIndex(0) is not nil or did not raise an error or not equal 1")
 	}
 
@@ -403,7 +406,7 @@ func TestRemoveNodeByIndex(t *testing.T) {
 					expectedRemoveNodeValues[i],
 				)
 			}
-			if list.PrintList() != expectedStrRes[i] {
+			if fmt.Sprintf("%v", &list) != expectedStrRes[i] {
 				t.Errorf(
 					"RemoveNodeByIndex(%d) is not equal to %s",
 					indexToRemoves[i],
@@ -451,7 +454,7 @@ func TestSortWayOneAsc(t *testing.T) {
 			list.AddNodeToTail(input.nodes[i][j])
 		}
 		list.SortWayOne(true)
-		resStr := list.PrintList()
+		resStr := fmt.Sprintf("%v", &list)
 		if resStr != input.expectedValues[i] {
 			t.Errorf("%s != %s", resStr, input.expectedValues[i])
 		}
@@ -495,7 +498,7 @@ func TestSortWayTwoAsc(t *testing.T) {
 			list.AddNodeToTail(input.nodes[i][j])
 		}
 		list.SortWayTwo(true)
-		resStr := list.PrintList()
+		resStr := fmt.Sprintf("%v", &list)
 		if resStr != input.expectedValues[i] {
 			t.Errorf("%s != %s", resStr, input.expectedValues[i])
 		}
@@ -539,7 +542,7 @@ func TestSortWayTwoDesc(t *testing.T) {
 			list.AddNodeToTail(input.nodes[i][j])
 		}
 		list.SortWayTwo(false)
-		resStr := list.PrintList()
+		resStr := fmt.Sprintf("%v", &list)
 		if resStr != input.expectedValues[i] {
 			t.Errorf("%s != %s", resStr, input.expectedValues[i])
 		}

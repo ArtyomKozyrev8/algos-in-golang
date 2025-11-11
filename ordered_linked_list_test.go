@@ -1,16 +1,19 @@
 package algos_in_golang
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
-func TestOrderedAscLinkedList_PrintList(t *testing.T) {
+func TestOrderedAscLinkedList_String(t *testing.T) {
 	list := OrderedAscLinkedList{}
-	resStr := list.PrintList()
+	resStr := fmt.Sprintf("%v", &list)
 	if resStr != "OAscLL: " {
 		t.Error("Expected 'OAscLL ' got", resStr)
 	}
 
 	list.Append(0)
-	resStr = list.PrintList()
+	resStr = fmt.Sprintf("%v", &list)
 	if resStr != "OAscLL: 0" {
 		t.Error("Expected 'OAscLL 0' got", resStr)
 	}
@@ -25,7 +28,7 @@ func TestOrderedAscLinkedList_PrintList(t *testing.T) {
 
 	for i := 0; i < len(vars.values); i++ {
 		list.Append(vars.values[i])
-		resStr = list.PrintList()
+		resStr = fmt.Sprintf("%v", &list)
 		if resStr != vars.results[i] {
 			t.Error("Expected ", vars.results[i], "got", resStr)
 		}
@@ -90,7 +93,7 @@ func TestOrderedAscLinkedList_Append(t *testing.T) {
 		for j := 0; j < len(vars.values[i]); j++ {
 			list.Append(vars.values[i][j])
 		}
-		resStr := list.PrintList()
+		resStr := fmt.Sprintf("%v", &list)
 		if resStr != vars.results[i] {
 			t.Error("Expected ", vars.results[i], "got", resStr)
 		}

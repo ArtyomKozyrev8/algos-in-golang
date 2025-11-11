@@ -6,7 +6,7 @@ type OrderedAscLinkedList struct {
 	head *Node
 }
 
-func (list *OrderedAscLinkedList) PrintList() string {
+func (list *OrderedAscLinkedList) String() string {
 	res := "OAscLL: "
 	cur := list.head
 	for {
