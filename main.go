@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/ArtyomKozyrev8/algos-in-golang/linkedlist"
-	"github.com/ArtyomKozyrev8/algos-in-golang/ordered_linked_list"
+	"github.com/ArtyomKozyrev8/algos-in-golang/stuctures/linkedlist"
+	"github.com/ArtyomKozyrev8/algos-in-golang/stuctures/ordered_linked_list"
 )
 
 func main() {
@@ -12,9 +12,10 @@ func main() {
 	list.AddNodeToTail(3)
 	list.AddNodeToTail(4)
 	fmt.Println(&list)
-	olist := ordered_linked_list.OrderedAscLinkedList{}
-	olist.Append(2)
-	olist.Append(1)
-	olist.Append(0)
-	fmt.Println(&olist)
+
+	oList := ordered_linked_list.OrderedAscLinkedList{}
+	oList.Append(2)
+	oList.Append(1)
+	oList.Append(0)
+	fmt.Println(&oList)
 }

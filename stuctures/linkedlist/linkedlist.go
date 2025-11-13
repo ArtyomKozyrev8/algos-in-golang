@@ -3,26 +3,23 @@ package linkedlist
 import (
 	"errors"
 	"strconv"
+
+	"github.com/ArtyomKozyrev8/algos-in-golang/stuctures/nodes"
 )
 
-type Node struct {
-	Value int
-	Next  *Node
-}
-
 type LinkedList struct {
-	head *Node
+	head *nodes.Node
 }
 
 // AddNodeToTail adds new node to LinkedList
 func (list *LinkedList) AddNodeToTail(value int) {
 	if list.head == nil {
-		list.head = &Node{value, nil}
+		list.head = &nodes.Node{Value: value, Next: nil}
 	} else {
 		cur := list.head
 		for {
 			if cur.Next == nil {
-				cur.Next = &Node{value, nil}
+				cur.Next = &nodes.Node{Value: value, Next: nil}
 				break
 			}
 			cur = cur.Next
@@ -48,7 +45,7 @@ func (list *LinkedList) String() string {
 
 // ReverseList reverse order of nodes in LinkedList
 func (list *LinkedList) ReverseList() {
-	var prev *Node
+	var prev *nodes.Node
 	cur := list.head
 
 	for cur != nil {
@@ -62,7 +59,7 @@ func (list *LinkedList) ReverseList() {
 }
 
 // GetNodeByIndex returns Node from LinkedList by index
-func (list *LinkedList) GetNodeByIndex(index int) *Node {
+func (list *LinkedList) GetNodeByIndex(index int) *nodes.Node {
 	cur := list.head
 	curIndex := 0
 	for cur != nil {
@@ -76,7 +73,7 @@ func (list *LinkedList) GetNodeByIndex(index int) *Node {
 }
 
 // GetNodeByValue returns Node from LinkedList by value
-func (list *LinkedList) GetNodeByValue(value int) *Node {
+func (list *LinkedList) GetNodeByValue(value int) *nodes.Node {
 	cur := list.head
 	for cur != nil {
 		if cur.Value == value {
@@ -90,15 +87,15 @@ func (list *LinkedList) GetNodeByValue(value int) *Node {
 // AddNodeToHead adds new node to the head of LinkedList
 func (list *LinkedList) AddNodeToHead(value int) {
 	if list.head == nil {
-		list.head = &Node{value, nil}
+		list.head = &nodes.Node{Value: value, Next: nil}
 	} else {
 		cur := list.head
-		list.head = &Node{value, cur}
+		list.head = &nodes.Node{Value: value, Next: cur}
 	}
 }
 
 // RemoveNodeFromHead removes and returns Node from head of LinkedList
-func (list *LinkedList) RemoveNodeFromHead() *Node {
+func (list *LinkedList) RemoveNodeFromHead() *nodes.Node {
 	if list.head == nil {
 		return nil
 	}
@@ -111,12 +108,12 @@ func (list *LinkedList) RemoveNodeFromHead() *Node {
 }
 
 // RemoveNodeFromTail removes and returns Node from tail of LinkedList
-func (list *LinkedList) RemoveNodeFromTail() *Node {
+func (list *LinkedList) RemoveNodeFromTail() *nodes.Node {
 	if list.head == nil {
 		return nil
 	}
 
-	var prev *Node
+	var prev *nodes.Node
 	cur := list.head
 	for {
 		if cur.Next != nil {
@@ -147,7 +144,7 @@ func (list *LinkedList) Length() int {
 }
 
 // RemoveNodeByIndex removes Node from LinkedList based on index
-func (list *LinkedList) RemoveNodeByIndex(index int) (error, *Node) {
+func (list *LinkedList) RemoveNodeByIndex(index int) (error, *nodes.Node) {
 	if index < 0 {
 		return errors.New("index can't be negative number"), nil
 	}
@@ -157,7 +154,7 @@ func (list *LinkedList) RemoveNodeByIndex(index int) (error, *Node) {
 	}
 
 	curIndex := 0
-	var prev *Node
+	var prev *nodes.Node
 	cur := list.head
 
 	for cur != nil {
@@ -221,11 +218,11 @@ func (list *LinkedList) SortWayTwo(orderAsc bool) {
 	for list.head != nil {
 		// we need curExtremumPrevNode to remove curExtremumNode
 		// without additional traverse in the list
-		var curExtremumPrevNode *Node
-		var curExtremumNode *Node
+		var curExtremumPrevNode *nodes.Node
+		var curExtremumNode *nodes.Node
 		curExtremumNode = list.head
 
-		var prev *Node
+		var prev *nodes.Node
 		cur := list.head
 
 		for cur != nil {
