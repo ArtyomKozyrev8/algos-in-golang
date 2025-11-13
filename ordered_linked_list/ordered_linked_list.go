@@ -2,6 +2,7 @@ package ordered_linked_list
 
 import (
 	"fmt"
+
 	"github.com/ArtyomKozyrev8/algos-in-golang/linkedlist"
 )
 
@@ -22,8 +23,8 @@ func (list *OrderedAscLinkedList) String() string {
 	cur := list.head
 	for {
 		if cur != nil {
-			res += fmt.Sprintf("%d", cur.value)
-			cur = cur.next
+			res += fmt.Sprintf("%d", cur.Value)
+			cur = cur.Next
 			if cur != nil {
 				res += ","
 			}
@@ -40,16 +41,16 @@ func (list *OrderedAscLinkedList) RemoveByValue(value int) (int, error) {
 	cur := list.head
 
 	for cur != nil {
-		if cur.value == value {
+		if cur.Value == value {
 			if prev != nil {
-				prev.next = cur.next
+				prev.Next = cur.Next
 			} else {
-				list.head = cur.next
+				list.head = cur.Next
 			}
-			return cur.value, nil
+			return cur.Value, nil
 		} else {
 			prev = cur
-			cur = cur.next
+			cur = cur.Next
 		}
 	}
 
@@ -58,25 +59,25 @@ func (list *OrderedAscLinkedList) RemoveByValue(value int) (int, error) {
 
 func (list *OrderedAscLinkedList) Append(value int) {
 	if list.head == nil {
-		list.head = &linkedlist.Node{value: value}
+		list.head = &linkedlist.Node{Value: value}
 		return
 	}
 
 	var prev *linkedlist.Node
 	cur := list.head
 	for {
-		if cur.value <= value {
+		if cur.Value <= value {
 			prev = cur
-			cur = cur.next
+			cur = cur.Next
 			if cur == nil {
-				prev.next = &linkedlist.Node{value: value}
+				prev.Next = &linkedlist.Node{Value: value}
 				break
 			}
 		} else {
 			if prev == nil {
-				list.head = &linkedlist.Node{value: value, next: cur}
+				list.head = &linkedlist.Node{Value: value, Next: cur}
 			} else {
-				prev.next = &linkedlist.Node{value: value, next: cur}
+				prev.Next = &linkedlist.Node{Value: value, Next: cur}
 			}
 			break
 		}

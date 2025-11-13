@@ -6,8 +6,8 @@ import (
 )
 
 type Node struct {
-	value int
-	next  *Node
+	Value int
+	Next  *Node
 }
 
 type LinkedList struct {
@@ -21,11 +21,11 @@ func (list *LinkedList) AddNodeToTail(value int) {
 	} else {
 		cur := list.head
 		for {
-			if cur.next == nil {
-				cur.next = &Node{value, nil}
+			if cur.Next == nil {
+				cur.Next = &Node{value, nil}
 				break
 			}
-			cur = cur.next
+			cur = cur.Next
 		}
 	}
 }
@@ -36,11 +36,11 @@ func (list *LinkedList) String() string {
 	cur := list.head
 
 	for cur != nil {
-		res += strconv.Itoa(cur.value)
-		if cur.next != nil {
+		res += strconv.Itoa(cur.Value)
+		if cur.Next != nil {
 			res += ","
 		}
-		cur = cur.next
+		cur = cur.Next
 	}
 
 	return res
@@ -52,8 +52,8 @@ func (list *LinkedList) ReverseList() {
 	cur := list.head
 
 	for cur != nil {
-		temp := cur.next
-		cur.next = prev
+		temp := cur.Next
+		cur.Next = prev
 		prev = cur
 		cur = temp
 	}
@@ -69,7 +69,7 @@ func (list *LinkedList) GetNodeByIndex(index int) *Node {
 		if curIndex == index {
 			return cur
 		}
-		cur = cur.next
+		cur = cur.Next
 		curIndex += 1
 	}
 	return nil
@@ -79,10 +79,10 @@ func (list *LinkedList) GetNodeByIndex(index int) *Node {
 func (list *LinkedList) GetNodeByValue(value int) *Node {
 	cur := list.head
 	for cur != nil {
-		if cur.value == value {
+		if cur.Value == value {
 			return cur
 		}
-		cur = cur.next
+		cur = cur.Next
 	}
 	return nil
 }
@@ -104,7 +104,7 @@ func (list *LinkedList) RemoveNodeFromHead() *Node {
 	}
 
 	cur := list.head
-	curNext := cur.next
+	curNext := cur.Next
 	list.head = curNext
 
 	return cur
@@ -119,14 +119,14 @@ func (list *LinkedList) RemoveNodeFromTail() *Node {
 	var prev *Node
 	cur := list.head
 	for {
-		if cur.next != nil {
+		if cur.Next != nil {
 			prev = cur
-			cur = cur.next
+			cur = cur.Next
 		} else {
 			if prev == nil {
 				list.head = nil
 			} else {
-				prev.next = nil
+				prev.Next = nil
 			}
 			return cur
 		}
@@ -139,7 +139,7 @@ func (list *LinkedList) Length() int {
 	cur := list.head
 
 	for cur != nil {
-		cur = cur.next
+		cur = cur.Next
 		num += 1
 	}
 
@@ -163,14 +163,14 @@ func (list *LinkedList) RemoveNodeByIndex(index int) (error, *Node) {
 	for cur != nil {
 		if curIndex == index {
 			if prev == nil {
-				list.head = cur.next
+				list.head = cur.Next
 			} else {
-				prev.next = cur.next
+				prev.Next = cur.Next
 			}
 			return nil, cur
 		} else {
 			prev = cur
-			cur = cur.next
+			cur = cur.Next
 			curIndex += 1
 		}
 	}
@@ -186,28 +186,28 @@ func (list *LinkedList) SortWayOne(orderAsc bool) {
 		cur := list.head
 		curIndex := 0
 		curExtremumIndex := 0
-		curExtremumValue := list.head.value
+		curExtremumValue := list.head.Value
 		for cur != nil {
-			if cur.next == nil {
+			if cur.Next == nil {
 				break
 			} else {
 				curIndex += 1
 				if orderAsc == true {
-					if curExtremumValue <= cur.next.value {
-						curExtremumValue = cur.next.value
+					if curExtremumValue <= cur.Next.Value {
+						curExtremumValue = cur.Next.Value
 						curExtremumIndex = curIndex
 					}
 				} else {
-					if curExtremumValue >= cur.next.value {
-						curExtremumValue = cur.next.value
+					if curExtremumValue >= cur.Next.Value {
+						curExtremumValue = cur.Next.Value
 						curExtremumIndex = curIndex
 					}
 				}
-				cur = cur.next
+				cur = cur.Next
 			}
 		}
 		_, nodeExtremum := list.RemoveNodeByIndex(curExtremumIndex)
-		sortedList.AddNodeToHead(nodeExtremum.value)
+		sortedList.AddNodeToHead(nodeExtremum.Value)
 	}
 
 	headNode := sortedList.head
@@ -231,32 +231,32 @@ func (list *LinkedList) SortWayTwo(orderAsc bool) {
 		for cur != nil {
 			if orderAsc {
 				// try to get new min/max value
-				if cur.value >= curExtremumNode.value {
+				if cur.Value >= curExtremumNode.Value {
 					curExtremumPrevNode = prev
 					curExtremumNode = cur
 				}
 			} else {
 				// try to get new min/max value
-				if cur.value <= curExtremumNode.value {
+				if cur.Value <= curExtremumNode.Value {
 					curExtremumPrevNode = prev
 					curExtremumNode = cur
 				}
 			}
 
 			// we reached the end of the list, let's remove min/max Node
-			if cur.next == nil {
+			if cur.Next == nil {
 				if curExtremumPrevNode != nil {
-					curExtremumPrevNode.next = curExtremumNode.next
+					curExtremumPrevNode.Next = curExtremumNode.Next
 				} else {
-					list.head = curExtremumNode.next
+					list.head = curExtremumNode.Next
 				}
 				break
 			} else {
 				prev = cur
-				cur = cur.next
+				cur = cur.Next
 			}
 		}
-		sortedList.AddNodeToHead(curExtremumNode.value)
+		sortedList.AddNodeToHead(curExtremumNode.Value)
 	}
 
 	headNode := sortedList.head

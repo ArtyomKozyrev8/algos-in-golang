@@ -13,7 +13,7 @@ func TestAddNodeToTail(t *testing.T) {
 		t.Errorf("head of LinkedList is nil")
 	}
 
-	if list.head.value != 1 {
+	if list.head.Value != 1 {
 		t.Errorf("value of head node in LinkedList is not 1")
 	}
 
@@ -65,8 +65,8 @@ func TestReverseList(t *testing.T) {
 		if fmt.Sprintf("%v", &list) != expectedResults[i] {
 			t.Errorf("%s != %s", fmt.Sprintf("%v", &list), expectedResults[i])
 		}
-		if list.head.value != expectedHeadValue[i] {
-			t.Errorf("%d != %d", list.head.value, expectedHeadValue[i])
+		if list.head.Value != expectedHeadValue[i] {
+			t.Errorf("%d != %d", list.head.Value, expectedHeadValue[i])
 		}
 	}
 }
@@ -78,15 +78,15 @@ func TestGetNodeByIndex(t *testing.T) {
 	}
 
 	list.AddNodeToTail(1)
-	if list.GetNodeByIndex(0).value != 1 {
+	if list.GetNodeByIndex(0).Value != 1 {
 		t.Errorf("GetNodeByIndex(0) is not 1")
 	}
 
 	list.AddNodeToTail(2)
-	if list.GetNodeByIndex(0).value != 1 {
+	if list.GetNodeByIndex(0).Value != 1 {
 		t.Errorf("GetNodeByIndex(0) is not 1")
 	}
-	if list.GetNodeByIndex(1).value != 2 {
+	if list.GetNodeByIndex(1).Value != 2 {
 		t.Errorf("GetNodeByIndex(1) is not 2")
 	}
 
@@ -100,8 +100,8 @@ func TestGetNodeByIndex(t *testing.T) {
 	expectedResults := []int{1, 2, 3, 4, 5}
 
 	for index, value := range expectedResults {
-		if list.GetNodeByIndex(index).value != value {
-			t.Errorf("GetNodeByIndex(%d) is not %d", index, list.GetNodeByIndex(index).value)
+		if list.GetNodeByIndex(index).Value != value {
+			t.Errorf("GetNodeByIndex(%d) is not %d", index, list.GetNodeByIndex(index).Value)
 		}
 	}
 
@@ -117,12 +117,12 @@ func TestGetNodeByValue(t *testing.T) {
 	}
 
 	list.AddNodeToTail(1)
-	if list.GetNodeByValue(1).value != 1 {
+	if list.GetNodeByValue(1).Value != 1 {
 		t.Errorf("GetNodeByValue(1) is not 1")
 	}
 
 	list.AddNodeToTail(2)
-	if list.GetNodeByValue(2).value != 2 {
+	if list.GetNodeByValue(2).Value != 2 {
 		t.Errorf("GetNodeByValue(2) is not 2")
 	}
 
@@ -134,7 +134,7 @@ func TestGetNodeByValue(t *testing.T) {
 	nodes = []int{1, 2, 3, 4, 5}
 
 	for _, value := range nodes {
-		if list.GetNodeByValue(value).value != value {
+		if list.GetNodeByValue(value).Value != value {
 			t.Errorf("GetNodeByValue(%d) is not %d", value, value)
 		}
 	}
@@ -150,11 +150,11 @@ func TestAddNodeToHead(t *testing.T) {
 	if list.head == nil {
 		t.Errorf("head of LinkedList is nil")
 	}
-	if list.head.value != 1 {
+	if list.head.Value != 1 {
 		t.Errorf("value of head node in LinkedList is not 1")
 	}
 	list.AddNodeToHead(2)
-	if list.head.value != 2 {
+	if list.head.Value != 2 {
 		t.Errorf("value of head node in LinkedList is not 2")
 	}
 	resStr := fmt.Sprintf("%v", &list)
@@ -162,7 +162,7 @@ func TestAddNodeToHead(t *testing.T) {
 		t.Errorf("%s != LinkedList: 2,1", resStr)
 	}
 	list.AddNodeToHead(3)
-	if list.head.value != 3 {
+	if list.head.Value != 3 {
 		t.Errorf("value of head node in LinkedList is not 3")
 	}
 	resStr = fmt.Sprintf("%v", &list)
@@ -186,7 +186,7 @@ func TestRemoveNodeFromHead(t *testing.T) {
 	}
 
 	list.AddNodeToHead(1)
-	if list.RemoveNodeFromHead().value != 1 {
+	if list.RemoveNodeFromHead().Value != 1 {
 		t.Errorf("remove node value is not 1")
 	}
 	if list.head != nil {
@@ -195,13 +195,13 @@ func TestRemoveNodeFromHead(t *testing.T) {
 
 	list.AddNodeToTail(1)
 	list.AddNodeToTail(2)
-	if list.RemoveNodeFromHead().value != 1 {
+	if list.RemoveNodeFromHead().Value != 1 {
 		t.Errorf("remove node value is not 1")
 	}
 
 	list.AddNodeToTail(1)
 	list.AddNodeToTail(3)
-	if list.RemoveNodeFromHead().value != 2 {
+	if list.RemoveNodeFromHead().Value != 2 {
 		t.Errorf("remove node value is not 2")
 	}
 	resStr := fmt.Sprintf("%v", &list)
@@ -215,10 +215,10 @@ func TestRemoveNodeFromHead(t *testing.T) {
 	if removedNode == nil {
 		t.Errorf("removedNode is nil")
 	} else {
-		if removedNode.value != 5 {
+		if removedNode.Value != 5 {
 			t.Errorf("removedNode value is not 5")
 		}
-		if removedNode.next.value != 1 {
+		if removedNode.Next.Value != 1 {
 			t.Errorf("removedNode next node value is not 1")
 		}
 		resStr = fmt.Sprintf("%v", &list)
@@ -240,7 +240,7 @@ func TestRemoveNodeFromTail(t *testing.T) {
 	if removedNode == nil {
 		t.Errorf("removedNode is nil")
 	} else {
-		if removedNode.value != 1 {
+		if removedNode.Value != 1 {
 			t.Errorf("removedNode value is not 1")
 		}
 		if list.head != nil {
@@ -254,7 +254,7 @@ func TestRemoveNodeFromTail(t *testing.T) {
 	if removedNode == nil {
 		t.Errorf("removedNode is nil")
 	} else {
-		if removedNode.value != 2 {
+		if removedNode.Value != 2 {
 			t.Errorf("removedNode value is not 2")
 		}
 	}
@@ -266,7 +266,7 @@ func TestRemoveNodeFromTail(t *testing.T) {
 	if removedNode == nil {
 		t.Errorf("removedNode is nil")
 	} else {
-		if removedNode.value != 3 {
+		if removedNode.Value != 3 {
 			t.Errorf("removedNode value is not3")
 		}
 	}
@@ -320,7 +320,7 @@ func TestRemoveNodeByIndex(t *testing.T) {
 	}
 
 	err, removedNode = list.RemoveNodeByIndex(0)
-	if err != nil || removedNode.value != 1 || fmt.Sprintf("%v", &list) != "LinkedList: " {
+	if err != nil || removedNode.Value != 1 || fmt.Sprintf("%v", &list) != "LinkedList: " {
 		t.Errorf("RemoveNodeByIndex(0) is not nil or did not raise an error or not equal 1")
 	}
 
@@ -398,11 +398,11 @@ func TestRemoveNodeByIndex(t *testing.T) {
 		if removedNodeRes == nil {
 			t.Errorf("RemoveNodeByIndex(%d) is nil", indexToRemoves[i])
 		} else {
-			if removedNodeRes.value != expectedRemoveNodeValues[i] {
+			if removedNodeRes.Value != expectedRemoveNodeValues[i] {
 				t.Errorf(
 					"RemoveNodeByIndex(%d) value %d is not equal to %d",
 					indexToRemoves[i],
-					removedNodeRes.value,
+					removedNodeRes.Value,
 					expectedRemoveNodeValues[i],
 				)
 			}
