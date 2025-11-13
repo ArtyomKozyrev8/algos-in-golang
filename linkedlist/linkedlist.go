@@ -1,4 +1,4 @@
-package algos_in_golang
+package linkedlist
 
 import (
 	"errors"
