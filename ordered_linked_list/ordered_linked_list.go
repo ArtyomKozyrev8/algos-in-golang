@@ -1,7 +1,8 @@
-package algos_in_golang
+package ordered_linked_list
 
 import (
 	"fmt"
+	"github.com/ArtyomKozyrev8/algos-in-golang/linkedlist"
 )
 
 type OLLError struct {
@@ -13,7 +14,7 @@ func (e *OLLError) Error() string {
 }
 
 type OrderedAscLinkedList struct {
-	head *Node
+	head *linkedlist.Node
 }
 
 func (list *OrderedAscLinkedList) String() string {
@@ -35,7 +36,7 @@ func (list *OrderedAscLinkedList) String() string {
 }
 
 func (list *OrderedAscLinkedList) RemoveByValue(value int) (int, error) {
-	var prev *Node
+	var prev *linkedlist.Node
 	cur := list.head
 
 	for cur != nil {
@@ -57,25 +58,25 @@ func (list *OrderedAscLinkedList) RemoveByValue(value int) (int, error) {
 
 func (list *OrderedAscLinkedList) Append(value int) {
 	if list.head == nil {
-		list.head = &Node{value: value}
+		list.head = &linkedlist.Node{value: value}
 		return
 	}
 
-	var prev *Node
+	var prev *linkedlist.Node
 	cur := list.head
 	for {
 		if cur.value <= value {
 			prev = cur
 			cur = cur.next
 			if cur == nil {
-				prev.next = &Node{value: value}
+				prev.next = &linkedlist.Node{value: value}
 				break
 			}
 		} else {
 			if prev == nil {
-				list.head = &Node{value: value, next: cur}
+				list.head = &linkedlist.Node{value: value, next: cur}
 			} else {
-				prev.next = &Node{value: value, next: cur}
+				prev.next = &linkedlist.Node{value: value, next: cur}
 			}
 			break
 		}

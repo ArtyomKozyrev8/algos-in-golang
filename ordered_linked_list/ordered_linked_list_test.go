@@ -1,12 +1,13 @@
-package algos_in_golang
+package ordered_linked_list
 
 import (
+	"algos_in_golang"
 	"fmt"
 	"testing"
 )
 
 func TestOrderedAscLinkedList_String(t *testing.T) {
-	list := OrderedAscLinkedList{}
+	list := algos_in_golang.OrderedAscLinkedList{}
 	resStr := fmt.Sprintf("%v", &list)
 	if resStr != "OAscLL: " {
 		t.Error("Expected 'OAscLL ' got", resStr)
@@ -89,7 +90,7 @@ func TestOrderedAscLinkedList_Append(t *testing.T) {
 	}
 
 	for i := 0; i < len(vars.values); i++ {
-		list := OrderedAscLinkedList{}
+		list := algos_in_golang.OrderedAscLinkedList{}
 		for j := 0; j < len(vars.values[i]); j++ {
 			list.Append(vars.values[i][j])
 		}
@@ -118,16 +119,16 @@ func TestOrderedAscLinkedList_RemoveByValue(t *testing.T) {
 			0, 3, 0, 1, 2, 0, 3, 4, 5, 0,
 		},
 		errResults: []error{
-			&OLLError{"value 1 not found"},
+			&algos_in_golang.OLLError{"value 1 not found"},
 			nil,
-			&OLLError{"value 9 not found"},
-			nil,
-			nil,
-			&OLLError{"value 9 not found"},
+			&algos_in_golang.OLLError{"value 9 not found"},
 			nil,
 			nil,
+			&algos_in_golang.OLLError{"value 9 not found"},
 			nil,
-			&OLLError{"value 9 not found"},
+			nil,
+			nil,
+			&algos_in_golang.OLLError{"value 9 not found"},
 		},
 		resStr: []string{
 			"OAscLL: ",
@@ -143,7 +144,7 @@ func TestOrderedAscLinkedList_RemoveByValue(t *testing.T) {
 		},
 	}
 	for i := 0; i < len(vars.values); i++ {
-		list := OrderedAscLinkedList{}
+		list := algos_in_golang.OrderedAscLinkedList{}
 		for j := 0; j < len(vars.values[i]); j++ {
 			list.Append(vars.values[i][j])
 		}
