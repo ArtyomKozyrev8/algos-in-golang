@@ -109,13 +109,13 @@ func TestOrderedAscLinkedList_RemoveByValue(t *testing.T) {
 		resStr      []string
 	}{
 		values: [][]int{
-			{}, {3}, {3}, {2, 1}, {1, 2}, {1, 2}, {3, 4, 5}, {4, 3, 5}, {5, 3, 4}, {3, 4, 5},
+			{}, {3}, {3}, {2, 1}, {1, 2}, {1, 2}, {3, 4, 5}, {4, 3, 5}, {5, 3, 4}, {3, 4, 5}, {1, 2, 5, 6, 7, 8},
 		},
 		removeValue: []int{
-			1, 3, 9, 1, 2, 9, 3, 4, 5, 9,
+			1, 3, 9, 1, 2, 9, 3, 4, 5, 9, 3,
 		},
 		fineResult: []int{
-			0, 3, 0, 1, 2, 0, 3, 4, 5, 0,
+			0, 3, 0, 1, 2, 0, 3, 4, 5, 0, 0,
 		},
 		errResults: []error{
 			&OLLError{"value 1 not found"},
@@ -128,6 +128,7 @@ func TestOrderedAscLinkedList_RemoveByValue(t *testing.T) {
 			nil,
 			nil,
 			&OLLError{"value 9 not found"},
+			&OLLError{"value 3 not found"},
 		},
 		resStr: []string{
 			"OAscLL: ",
@@ -140,6 +141,7 @@ func TestOrderedAscLinkedList_RemoveByValue(t *testing.T) {
 			"OAscLL: 3,5",
 			"OAscLL: 3,4",
 			"OAscLL: 3,4,5",
+			"OAscLL: 1,2,5,6,7,8",
 		},
 	}
 	for i := 0; i < len(vars.values); i++ {

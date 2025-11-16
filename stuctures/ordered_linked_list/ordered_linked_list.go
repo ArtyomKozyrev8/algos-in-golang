@@ -49,6 +49,9 @@ func (list *OrderedAscLinkedList) RemoveByValue(value int) (int, error) {
 			}
 			return cur.Value, nil
 		} else {
+			if cur.Value > value {
+				break // our list is ordered, if cur.value > value, we can stop searching
+			}
 			prev = cur
 			cur = cur.Next
 		}
