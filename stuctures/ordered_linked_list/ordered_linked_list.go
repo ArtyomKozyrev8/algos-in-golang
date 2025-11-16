@@ -84,3 +84,26 @@ func (list *OrderedAscLinkedList) Append(value int) {
 	}
 	return
 }
+
+func (list *OrderedAscLinkedList) RemoveByIndex(index int) (int, error) {
+	var curIndex int = 0
+	var prev *nodes.Node
+	cur := list.head
+
+	for cur != nil {
+		if curIndex == index {
+			if prev == nil {
+				list.head = cur.Next
+			} else {
+				prev.Next = cur.Next
+			}
+			return cur.Value, nil
+		} else {
+			prev = cur
+			cur = cur.Next
+			curIndex = curIndex + 1
+		}
+	}
+
+	return 0, &OLLError{fmt.Sprintf("index %d out of range", index)}
+}

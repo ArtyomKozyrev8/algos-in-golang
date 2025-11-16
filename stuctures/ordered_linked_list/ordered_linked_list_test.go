@@ -162,3 +162,82 @@ func TestOrderedAscLinkedList_RemoveByValue(t *testing.T) {
 		}
 	}
 }
+
+func TestOrderedAscLinkedList_RemoveByIndex(t *testing.T) {
+	vars := struct {
+		values      [][]int
+		indexRemove []int
+		valReturn   []int
+		errorReturn []error
+		resStr      []string
+	}{
+		values: [][]int{
+			{},
+			{3},
+			{3},
+			{2, 1},
+			{1, 2},
+			{1, 2},
+			{1, 2, 3},
+			{1, 2, 3},
+			{1, 2, 3},
+			{1, 2, 3},
+			{1, 2, 3, 4, 5},
+			{1, 2, 3, 4, 5},
+			{1, 2, 3, 4, 5},
+			{1, 2, 3, 4, 5},
+		},
+		indexRemove: []int{1, 0, 1, 0, 1, 5, 0, 1, 2, 5, 0, 4, 3, 9},
+		valReturn:   []int{0, 3, 0, 1, 2, 0, 1, 2, 3, 0, 1, 5, 4, 0},
+		errorReturn: []error{
+			&OLLError{"index 1 out of range"},
+			nil,
+			&OLLError{"index 1 out of range"},
+			nil,
+			nil,
+			&OLLError{"index 5 out of range"},
+			nil,
+			nil,
+			nil,
+			&OLLError{"index 5 out of range"},
+			nil,
+			nil,
+			nil,
+			&OLLError{"index 9 out of range"},
+		},
+		resStr: []string{
+			"OAscLL: ",
+			"OAscLL: ",
+			"OAscLL: 3",
+			"OAscLL: 2",
+			"OAscLL: 1",
+			"OAscLL: 1,2",
+			"OAscLL: 2,3",
+			"OAscLL: 1,3",
+			"OAscLL: 1,2",
+			"OAscLL: 1,2,3",
+			"OAscLL: 2,3,4,5",
+			"OAscLL: 1,2,3,4",
+			"OAscLL: 1,2,3,5",
+			"OAscLL: 1,2,3,4,5",
+		},
+	}
+
+	for i := 0; i < len(vars.values); i++ {
+		list := OrderedAscLinkedList{}
+		for j := 0; j < len(vars.values[i]); j++ {
+			list.Append(vars.values[i][j])
+		}
+		res, exc := list.RemoveByIndex(vars.indexRemove[i])
+		if res != vars.valReturn[i] {
+			t.Error("Expected ", vars.valReturn[i], "got", res)
+		}
+		if fmt.Sprintf("%v", exc) != fmt.Sprintf("%v", vars.errorReturn[i]) {
+			t.Error(fmt.Sprintf("Expected '%v' != '%v'", vars.errorReturn[i], exc))
+		}
+
+		if fmt.Sprintf("%v", &list) != vars.resStr[i] {
+			t.Error(fmt.Sprintf("Expected '%v' != '%v'", vars.resStr[i], &list))
+		}
+	}
+}
