@@ -26,9 +26,36 @@ func RemoveDuplicatesFromSortedArrayInPlace(nums []int) (int, []int) {
 			for j := i; j < len(nums)-1; j++ {
 				nums[j] = nums[j+1] // move all next elements one position
 			}
-			nums[len(nums)-1] = 0 // deleted duplicate goes to the end
-			i -= 1                // we change i because array changed, so we have to check the same index again (in next step)
+			nums[len(nums)-1] = -1 // deleted duplicate goes to the end
+			i -= 1                 // we change i because array changed, so we have to check the same index again (in next step)
 		}
+	}
+	return uniqueElements, nums[:uniqueElements]
+}
+
+func RemoveDuplicatesFromSortedArrayInPlaceAttemptTwo(nums []int) (int, []int) {
+	if len(nums) == 0 {
+		return 0, nums
+	}
+
+	if len(nums) == 1 {
+		return 1, nums
+	}
+
+	lastUniqueIndex := 0
+	uniqueElements := 1
+	prev := nums[0]
+	for i := 1; i < len(nums); i++ {
+		if nums[i] != prev {
+			uniqueElements += 1
+			if lastUniqueIndex+1 == i {
+				lastUniqueIndex = i
+			} else {
+				nums[lastUniqueIndex+1] = nums[i]
+				lastUniqueIndex += 1
+			}
+		}
+		prev = nums[i]
 	}
 	return uniqueElements, nums[:uniqueElements]
 }
