@@ -59,3 +59,40 @@ func RemoveDuplicatesFromSortedArrayInPlaceAttemptTwo(nums []int) (int, []int) {
 	}
 	return uniqueElements, nums[:uniqueElements]
 }
+
+func LongestCommonPrefix(words []string) string {
+	if len(words) == 0 {
+		return ""
+	}
+
+	if len(words) == 1 {
+		return words[0]
+	}
+
+	var prefixLen int = 0
+
+labelOuterFor:
+	for {
+		var symbol uint8 = 0 // one character from string in Go is not string ! It is uint8 !
+		for _, str := range words {
+			if len(str) > prefixLen {
+				if symbol == 0 {
+					symbol = str[prefixLen]
+				} else {
+					if symbol != str[prefixLen] {
+						break labelOuterFor
+					}
+				}
+			} else {
+				break labelOuterFor
+			}
+		}
+		prefixLen += 1
+	}
+
+	if prefixLen == 0 {
+		return ""
+	}
+
+	return words[0][:prefixLen]
+}

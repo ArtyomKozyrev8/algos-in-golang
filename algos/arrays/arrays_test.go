@@ -70,3 +70,22 @@ func TestRemoveDuplicatesFromSortedArrayInPlaceAttemptTwo(t *testing.T) {
 		}
 	}
 }
+
+func TestLongestCommonPrefix(t *testing.T) {
+	vars := struct {
+		wordsGroup [][]string
+		prefixes   []string
+	}{
+		wordsGroup: [][]string{
+			{"abc", "a", "b"}, {"abc", "b", "b"}, {"abc", "abc", "abc"}, {"", "abcd"}, {"abcd", ""}, {}, {"a"},
+		},
+		prefixes: []string{"", "", "abc", "", "", "", "", "a"},
+	}
+
+	for i := 0; i < len(vars.wordsGroup); i++ {
+		prefix := LongestCommonPrefix(vars.wordsGroup[i])
+		if prefix != vars.prefixes[i] {
+			t.Errorf("%v != %v", prefix, vars.prefixes[i])
+		}
+	}
+}
