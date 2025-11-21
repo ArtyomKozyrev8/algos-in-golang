@@ -29,6 +29,14 @@ func (ln *ListNode) AddToTail(vals ...int) {
 	}
 }
 
+func BuildList(vals ...int) *ListNode {
+	firstNode := &ListNode{Val: vals[0]}
+	if len(vals) > 1 {
+		firstNode.AddToTail(vals[1:]...)
+	}
+	return firstNode
+}
+
 func (ln *ListNode) PrintList() string {
 	if ln == nil {
 		return "[]"
@@ -94,4 +102,64 @@ func AddTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	}
 
 	return firstNodeOfNewList
+}
+
+func RotateRight(head *ListNode, k int) *ListNode {
+	if head == nil {
+		return head
+	}
+
+	if head.Next == nil {
+		return head
+	}
+
+	firstNode := head
+
+	totalNodeNumber := 0
+	for tempK := k; tempK > 0; tempK-- {
+		var prev *ListNode
+		cur := firstNode
+
+		for cur.Next != nil {
+			prev = cur
+			cur = cur.Next
+			totalNodeNumber += 1
+		}
+
+		totalNodeNumber += 1 // // we add one because previous loop was cur.Next != nil
+
+		if k > totalNodeNumber {
+			break
+		}
+
+		if prev != nil {
+			prev.Next = nil
+		}
+		cur.Next = firstNode
+		firstNode = cur
+	}
+
+	// k > totalNodeNumber means that list do full rotation and is the same
+	if k > totalNodeNumber {
+		// we need to check only additional steps
+		newK := k % totalNodeNumber
+		firstNode = head
+		for ; newK > 0; newK-- {
+			var prev *ListNode
+			cur := firstNode
+
+			for cur.Next != nil {
+				prev = cur
+				cur = cur.Next
+			}
+
+			if prev != nil {
+				prev.Next = nil
+			}
+			cur.Next = firstNode
+			firstNode = cur
+		}
+	}
+
+	return firstNode
 }
