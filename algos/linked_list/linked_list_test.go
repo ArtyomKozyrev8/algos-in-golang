@@ -83,3 +83,39 @@ func TestAddToTail(t *testing.T) {
 		fmt.Printf("%v != %v\n", node.PrintList(), "[0,1,2,3]")
 	}
 }
+
+func TestMergeTwoSortedListAsSortedList(t *testing.T) {
+	vars := struct {
+		lists1  [][]int
+		lists2  [][]int
+		results []string
+	}{
+		lists1: [][]int{
+			{1, 2, 4}, {}, {}, {0}, {1, 2, 4}, {4, 2, 4}, {4, 5, 6}, {1, 2, 3}, {},
+		},
+		lists2: [][]int{
+			{1, 3, 4}, {}, {0}, {}, {3, 2, 4}, {1}, {1, 2, 3}, {4, 5, 6}, {1, 2, 3},
+		},
+		results: []string{
+			"[1,1,2,3,4,4]", "[]", "[0]", "[0]", "[1,2,2,3,4,4]", "[1,2,4,4]", "[1,2,3,4,5,6]", "[1,2,3,4,5,6]", "[1,2,3]",
+		},
+	}
+
+	for i := 0; i < len(vars.lists1); i++ {
+		var node1 *ListNode
+		var node2 *ListNode
+		if len(vars.lists1[i]) > 0 {
+			node1 = BuildList(vars.lists1[i]...)
+		}
+
+		if len(vars.lists2[i]) > 0 {
+			node2 = BuildList(vars.lists1[i]...)
+		}
+
+		res := MergeTwoSortedListAsSortedList(node1, node2)
+		resStr := res.PrintList()
+		if resStr != vars.results[i] {
+			fmt.Printf("%v != %v\n", resStr, vars.results[i])
+		}
+	}
+}

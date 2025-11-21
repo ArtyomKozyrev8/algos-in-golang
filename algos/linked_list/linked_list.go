@@ -30,6 +30,11 @@ func (ln *ListNode) AddToTail(vals ...int) {
 }
 
 func BuildList(vals ...int) *ListNode {
+	if len(vals) == 0 {
+		var head *ListNode
+		return head
+	}
+
 	firstNode := &ListNode{Val: vals[0]}
 	if len(vals) > 1 {
 		firstNode.AddToTail(vals[1:]...)
@@ -161,5 +166,60 @@ func RotateRight(head *ListNode, k int) *ListNode {
 		}
 	}
 
+	return firstNode
+}
+
+func MergeTwoSortedListAsSortedList(list1 *ListNode, list2 *ListNode) *ListNode {
+	var lastNode *ListNode
+	var firstNode *ListNode
+	cur1 := list1
+	cur2 := list2
+	for {
+		if firstNode != nil && lastNode == nil {
+			lastNode = firstNode
+		}
+
+		if cur1 == nil && cur2 == nil {
+			break
+		} else if cur1 == nil {
+			if firstNode == nil {
+				firstNode = cur2
+			} else {
+				lastNode.Next = cur2
+				lastNode = cur2
+			}
+			cur2 = cur2.Next
+		} else if cur2 == nil {
+			if firstNode == nil {
+				firstNode = cur1
+			} else {
+				lastNode.Next = cur1
+				lastNode = cur1
+			}
+			cur1 = cur1.Next
+		} else {
+			if cur1.Val <= cur2.Val {
+				if firstNode == nil {
+					firstNode = cur1
+				} else {
+					lastNode.Next = cur1
+					lastNode = cur1
+				}
+				cur1 = cur1.Next
+			} else {
+				if firstNode == nil {
+					firstNode = cur2
+				} else {
+					lastNode.Next = cur2
+					lastNode = cur2
+				}
+				cur2 = cur2.Next
+			}
+		}
+	}
+
+	if lastNode != nil { // prevent Goland from complaining about possible null reference
+		lastNode.Next = nil // actually we do not need to do it, because last node in both lists have Next = nil
+	}
 	return firstNode
 }
