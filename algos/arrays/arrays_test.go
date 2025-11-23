@@ -79,7 +79,7 @@ func TestLongestCommonPrefix(t *testing.T) {
 		wordsGroup: [][]string{
 			{"abc", "a", "b"}, {"abc", "b", "b"}, {"abc", "abc", "abc"}, {"", "abcd"}, {"abcd", ""}, {}, {"a"},
 		},
-		prefixes: []string{"", "", "abc", "", "", "", "", "a"},
+		prefixes: []string{"", "", "abc", "", "", "", "a"},
 	}
 
 	for i := 0; i < len(vars.wordsGroup); i++ {

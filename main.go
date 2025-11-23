@@ -31,6 +31,20 @@ label1:
 	}
 }
 
+func printBytes(s string) {
+	fmt.Printf("Bytes: ")
+	for i := 0; i < len(s); i++ {
+		fmt.Printf("%x ", s[i])
+	}
+}
+
+func printChars(s string) {
+	fmt.Printf("Characters: ")
+	for i := 0; i < len(s); i++ {
+		fmt.Printf("%c ", s[i])
+	}
+}
+
 func main() {
 	list := linkedlist.LinkedList{}
 	list.AddNodeToTail(3)
@@ -46,4 +60,20 @@ func main() {
 	Smth(8)
 
 	Fun()
+
+	currencyCode := map[string]string{
+		"USD": "US Dollar",
+		"GBP": "Pound Sterling",
+		"EUR": "Euro",
+	}
+	currencyCode["Pip"] = "OIOPIO"
+	currency := "USD"
+	currencyName := currencyCode[currency]
+	fmt.Println("Currency name for currency code", currency, "is", currencyName)
+
+	name := "Hello World"
+	fmt.Printf("String: %s\n", name)
+	printChars(name)
+	fmt.Printf("\n")
+	printBytes(name)
 }

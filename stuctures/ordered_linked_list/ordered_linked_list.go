@@ -110,3 +110,14 @@ func (list *OrderedAscLinkedList) RemoveByIndex(index int) (int, error) {
 
 	return 0, &OLLError{fmt.Sprintf("index %d out of range", index)}
 }
+
+func (list *OrderedAscLinkedList) CheckValueInList(value int) bool {
+	cur := list.head
+	for cur != nil {
+		if cur.Value == value {
+			return true
+		}
+		cur = cur.Next
+	}
+	return false
+}
