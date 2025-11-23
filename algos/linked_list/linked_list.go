@@ -223,3 +223,25 @@ func MergeTwoSortedListAsSortedList(list1 *ListNode, list2 *ListNode) *ListNode 
 	}
 	return firstNode
 }
+
+func FindMiddleNodeValue(head *ListNode) int {
+	if head == nil {
+		return -1
+	}
+
+	curFast := head // do two steps
+	curSlow := head // do one step
+
+	for {
+		//try to make two steps
+		curFast = curFast.Next
+		if curFast == nil { // check results of first step
+			return curSlow.Val
+		}
+		curFast = curFast.Next
+		if curFast == nil { // check results of second step
+			return curSlow.Next.Val
+		}
+		curSlow = curSlow.Next // make only one step
+	}
+}

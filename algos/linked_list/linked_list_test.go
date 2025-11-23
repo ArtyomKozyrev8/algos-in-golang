@@ -119,3 +119,22 @@ func TestMergeTwoSortedListAsSortedList(t *testing.T) {
 		}
 	}
 }
+
+type TestCasesForFindMiddleNode struct {
+	nodeVals       []int
+	expectedResult int
+}
+
+func TestFindMiddleNode(t *testing.T) {
+	tests := []TestCasesForFindMiddleNode{
+		{[]int{1, 2, 3, 4, 5, 6}, 4}, {[]int{1, 2, 3, 4, 5}, 3}, {[]int{}, -1},
+	}
+
+	for _, test := range tests {
+		list := BuildList(test.nodeVals...)
+		res := FindMiddleNodeValue(list)
+		if res != test.expectedResult {
+			fmt.Printf("%v != %v\n", res, test.expectedResult)
+		}
+	}
+}
