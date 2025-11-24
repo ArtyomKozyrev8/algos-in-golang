@@ -39,3 +39,25 @@ func BuyChoco(prices []int, money int) int {
 		return money
 	}
 }
+
+func LongestPalindrome(s string) int {
+	result := 0
+	letters := make(map[int32]int)
+	for _, letter := range s {
+		val, exist := letters[letter]
+		if exist == false {
+			letters[letter] = 1
+		} else if val == 1 {
+			letters[letter] = 0
+			result += 2
+			delete(letters, letter)
+		} else {
+			letters[letter] = 1
+		}
+	}
+	if len(letters) > 0 {
+		result += 1
+	}
+
+	return result
+}

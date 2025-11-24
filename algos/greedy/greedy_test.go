@@ -27,3 +27,21 @@ func TestBuyChoco(t *testing.T) {
 		}
 	}
 }
+
+type LongestPalindromeTest struct {
+	string string
+	result int
+}
+
+func TestLongestPalindrome(t *testing.T) {
+	tests := []LongestPalindromeTest{
+		{"", 0}, {"a", 1}, {"bb", 2}, {"bba", 3}, {"abccccdd", 7},
+	}
+
+	for _, test := range tests {
+		res := LongestPalindrome(test.string)
+		if res != test.result {
+			t.Errorf("%v != %v", res, test.result)
+		}
+	}
+}
