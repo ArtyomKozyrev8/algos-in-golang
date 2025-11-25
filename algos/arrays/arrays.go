@@ -96,3 +96,24 @@ labelOuterFor:
 
 	return words[0][:prefixLen]
 }
+
+func RemoveAllValElements(nums []int, val int) []int {
+	lastIndex := len(nums) - 1
+	equalToValNum := 0
+
+	for i := 0; i < len(nums); i++ {
+		if nums[i] < 0 {
+			break
+		}
+
+		if nums[i] == val {
+			equalToValNum += 1
+			nums[i] = nums[lastIndex]
+			nums[lastIndex] = -1
+			lastIndex--
+			i--
+		}
+	}
+
+	return nums[0 : len(nums)-equalToValNum]
+}

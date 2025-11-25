@@ -2,6 +2,7 @@ package arrays
 
 import (
 	"reflect"
+	"slices"
 	"testing"
 )
 
@@ -86,6 +87,31 @@ func TestLongestCommonPrefix(t *testing.T) {
 		prefix := LongestCommonPrefix(vars.wordsGroup[i])
 		if prefix != vars.prefixes[i] {
 			t.Errorf("%v != %v", prefix, vars.prefixes[i])
+		}
+	}
+}
+
+type removeAllValElementTest struct {
+	testName    string
+	inputArray  []int
+	outputArray []int
+	val         int
+}
+
+func TestRemoveAllValElements(t *testing.T) {
+	testCases := []removeAllValElementTest{
+		{"Case-1", []int{1, 2, 1, 4, 1}, []int{2, 4}, 1},
+		{"Case-2", []int{}, []int{}, 1},
+		{"Case-3", []int{1, 2, 3, 4, 5}, []int{2, 3, 4, 5}, 1},
+		{"Case-4", []int{1, 2, 3, 4, 5}, []int{1, 2, 3, 4}, 5},
+	}
+
+	for _, testCase := range testCases {
+		result := RemoveAllValElements(testCase.inputArray, testCase.val)
+		slices.Sort(result)
+
+		if !reflect.DeepEqual(result, testCase.outputArray) {
+			t.Errorf("%s: %v != %v", testCase.testName, result, testCase.outputArray)
 		}
 	}
 }
