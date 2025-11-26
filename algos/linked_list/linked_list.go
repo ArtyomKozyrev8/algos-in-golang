@@ -245,3 +245,43 @@ func FindMiddleNodeValue(head *ListNode) int {
 		curSlow = curSlow.Next // make only one step
 	}
 }
+
+func RemoveNthFromEnd(head *ListNode, n int) *ListNode {
+	if head == nil {
+		return head
+	}
+
+	curFast := head
+	curSlow := head
+	prevCurSlow := new(ListNode)
+	steps := n
+
+	for {
+		curFast = curFast.Next
+		if steps == 0 {
+			prevCurSlow = curSlow
+			curSlow = curSlow.Next
+		} else {
+			steps--
+		}
+
+		if curFast == nil {
+			if steps > 0 {
+				return head.Next // we remove first (don't know why!!!)
+			} else {
+				if curSlow == head {
+					head = head.Next
+				} else {
+					if curSlow.Next != nil {
+						prevCurSlow.Next = curSlow.Next // detach curSlow node from list
+					} else {
+						prevCurSlow.Next = nil
+					}
+				}
+				break
+			}
+		}
+	}
+
+	return head
+}
