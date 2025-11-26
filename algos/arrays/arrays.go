@@ -117,3 +117,23 @@ func RemoveAllValElements(nums []int, val int) []int {
 
 	return nums[0 : len(nums)-equalToValNum]
 }
+
+func FindSingle(nums []int) int {
+	mapElements := make(map[int]int)
+	for _, num := range nums {
+		_, exists := mapElements[num]
+		if exists {
+			delete(mapElements, num)
+		} else {
+			mapElements[num] = 1
+		}
+	}
+
+	for k, v := range mapElements {
+		if v == 1 {
+			return k
+		}
+	}
+
+	return -1
+}

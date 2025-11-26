@@ -115,3 +115,26 @@ func TestRemoveAllValElements(t *testing.T) {
 		}
 	}
 }
+
+type FindSingleTest struct {
+	testName    string
+	inputArray  []int
+	expectedRes int
+}
+
+func TestFindSingle(t *testing.T) {
+	testCases := []FindSingleTest{
+		{"Case-1", []int{1, 2, 1, 4, 2}, 4},
+		{"Case-2", []int{}, -1},
+		{"Case-3", []int{4, 1, 2, 1, 2}, 4},
+		{"Case-4", []int{2, 2, 1}, 1},
+		{"Case-5", []int{1}, 1},
+	}
+
+	for _, testCase := range testCases {
+		result := FindSingle(testCase.inputArray)
+		if result != testCase.expectedRes {
+			t.Errorf("%s: %v != %v", testCase.testName, result, testCase.expectedRes)
+		}
+	}
+}
