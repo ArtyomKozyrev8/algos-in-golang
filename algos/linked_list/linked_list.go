@@ -170,8 +170,8 @@ func RotateRight(head *ListNode, k int) *ListNode {
 }
 
 func MergeTwoSortedListAsSortedList(list1 *ListNode, list2 *ListNode) *ListNode {
-	var lastNode *ListNode
-	var firstNode *ListNode
+	var lastNode *ListNode  // we work with the node to attach new nodes
+	var firstNode *ListNode //  the first node of new list - used only once - then returned in the end of func
 	cur1 := list1
 	cur2 := list2
 	for {

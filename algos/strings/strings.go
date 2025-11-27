@@ -33,3 +33,26 @@ func LengthOfLongestSubstringWayOne(s string) int {
 
 	return longestUniqueCharsSubstringsLen
 }
+
+func FindFirstIntersection(haystack string, needle string) int {
+	if len(needle) > len(haystack) {
+		return -1
+	}
+
+	for j := 0; j < len(haystack); j++ {
+		if haystack[j] == needle[0] {
+			fullOk := true
+			for i := 1; i < len(needle); i++ {
+				if j+i >= len(haystack) || needle[i] != haystack[j+i] {
+					fullOk = false
+					break
+				}
+			}
+			if fullOk {
+				return j
+			}
+		}
+	}
+
+	return -1
+}
