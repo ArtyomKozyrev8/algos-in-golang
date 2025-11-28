@@ -137,3 +137,41 @@ func FindSingle(nums []int) int {
 
 	return -1
 }
+
+func IsPalindromeNumber(x int) bool {
+	if x < 0 {
+		return false
+	}
+
+	if x < 10 {
+		return true
+	}
+
+	var digits []int
+
+	for x >= 10 {
+		digit := x % 10
+		digits = append(digits, digit)
+		x = (x - digit) / 10
+	}
+
+	if x != 0 {
+		digits = append(digits, x)
+	}
+
+	for i := 0; i < len(digits); i++ {
+		if i == len(digits)-1 {
+			return true
+		}
+
+		if i == (len(digits)-len(digits)%2)+1 {
+			return true
+		}
+
+		if digits[i] != digits[len(digits)-1-i] {
+			return false
+		}
+	}
+
+	return true
+}
