@@ -41,3 +41,26 @@ func TestFindFirstIntersection(t *testing.T) {
 		}
 	}
 }
+
+type testCaseIsSubsequence struct {
+	caseName      string
+	s             string
+	t             string
+	isSubsequence bool
+}
+
+func TestIsSubsequence(t *testing.T) {
+	var tests = []testCaseIsSubsequence{
+		{"TestCase-1", "abc", "ahbgdc", true},
+		{"TestCase-2", "axc", "ahbgdc", false},
+		{"TestCase-3", "aaaaaa", "bbaaaa", false},
+		{"TestCase-3", "aa", "a", false},
+	}
+
+	for _, testCase := range tests {
+		res := IsSubsequence(testCase.s, testCase.t)
+		if res != testCase.isSubsequence {
+			t.Errorf("%s %v != %v", testCase.caseName, testCase.isSubsequence, res)
+		}
+	}
+}

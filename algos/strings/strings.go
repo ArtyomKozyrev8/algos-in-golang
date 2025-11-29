@@ -56,3 +56,44 @@ func FindFirstIntersection(haystack string, needle string) int {
 
 	return -1
 }
+
+// IsSubsequence t is superset of s, but without any letter's position change
+func IsSubsequence(s string, t string) bool {
+	if len(s) > len(t) {
+		return false
+	}
+
+	data := make(map[uint8][]int, len(t))
+
+	for i := 0; i < len(t); i++ {
+		data[t[i]] = append(data[t[i]], i)
+	}
+
+	prevFoundPosition := 0
+	for i := 0; i < len(s); i++ {
+		vals, found := data[s[i]]
+		if found {
+			positionFound := false
+			for _, v := range vals {
+				if prevFoundPosition == 0 && v == 0 {
+					positionFound = true
+					break
+				}
+
+				if v > prevFoundPosition {
+					prevFoundPosition = v
+					positionFound = true
+					break
+				}
+			}
+			if positionFound == false {
+				return false
+			}
+
+		} else {
+			return false
+		}
+	}
+
+	return true
+}
