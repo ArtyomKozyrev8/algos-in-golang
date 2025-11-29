@@ -138,3 +138,27 @@ func TestFindSingle(t *testing.T) {
 		}
 	}
 }
+
+type TestCaseIsPalindromeNumber struct {
+	testName string
+	x        int
+	result   bool
+}
+
+func TestIsPalindromeNumber(t *testing.T) {
+	testCases := []TestCaseIsPalindromeNumber{
+		{"Case-1", 1, true},
+		{"Case-2", 111, true},
+		{"Case-3", 121, true},
+		{"Case-4", 1221, true},
+		{"Case-5", 9, true},
+		{"Case-6", 10, false},
+	}
+
+	for _, testCase := range testCases {
+		result := IsPalindromeNumber(testCase.x)
+		if result != testCase.result {
+			t.Errorf("%s: %v != %v", testCase.testName, result, testCase.result)
+		}
+	}
+}
