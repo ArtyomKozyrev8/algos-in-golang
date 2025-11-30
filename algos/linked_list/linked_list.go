@@ -253,7 +253,7 @@ func RemoveNthFromEnd(head *ListNode, n int) *ListNode {
 
 	curFast := head
 	curSlow := head
-	prevCurSlow := new(ListNode)
+	var prevCurSlow *ListNode
 	steps := n
 
 	for {
@@ -284,4 +284,43 @@ func RemoveNthFromEnd(head *ListNode, n int) *ListNode {
 	}
 
 	return head
+}
+
+func SwapTwoNearest(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return head
+	}
+
+	var newTail *ListNode
+	var newHead *ListNode
+	firstNode := head
+
+	for {
+		if firstNode == nil {
+			break
+		}
+		secondNode := firstNode.Next
+
+		if secondNode == nil {
+			break
+		} else {
+			if newHead == nil {
+				temp := secondNode.Next
+				newHead = secondNode
+				secondNode.Next = firstNode
+				firstNode.Next = temp
+				newTail = firstNode
+				firstNode = temp
+			} else {
+				temp := secondNode.Next
+				newTail.Next = secondNode // newTail can't be nil due to "if newHead == nil"
+				secondNode.Next = firstNode
+				firstNode.Next = temp
+				newTail = firstNode
+				firstNode = temp
+			}
+		}
+	}
+
+	return newHead
 }

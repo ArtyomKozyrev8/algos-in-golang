@@ -165,3 +165,29 @@ func TestRemoveNthFromEnd(t *testing.T) {
 		}
 	}
 }
+
+type TestCaseSwapTwoNearest struct {
+	caseName       string
+	nodes          []int
+	expectedResult string
+}
+
+func TestSwapTwoNearest(t *testing.T) {
+	tests := []TestCaseSwapTwoNearest{
+		{"Case-1", []int{1}, "[1]"},
+		{"Case-2", []int{}, "[]"},
+		{"Case-3", []int{1, 2}, "[2,1]"},
+		{"Case-4", []int{1, 2, 3}, "[2,1,3]"},
+		{"Case-5", []int{1, 2, 3, 4}, "[2,1,4,3]"},
+		{"Case-6", []int{1, 2, 3, 4, 5}, "[2,1,4,3,5]"},
+	}
+
+	for _, test := range tests {
+		list := BuildList(test.nodes...)
+		res := SwapTwoNearest(list)
+		resStr := res.PrintList()
+		if resStr != test.expectedResult {
+			t.Errorf("%s: %v != %v", test.caseName, resStr, test.expectedResult)
+		}
+	}
+}
