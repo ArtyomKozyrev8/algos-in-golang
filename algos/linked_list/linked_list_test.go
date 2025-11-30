@@ -191,3 +191,29 @@ func TestSwapTwoNearest(t *testing.T) {
 		}
 	}
 }
+
+type TestCaseReverseList struct {
+	caseName       string
+	nodes          []int
+	expectedResult string
+}
+
+func TestReverseList(t *testing.T) {
+	tests := []TestCaseReverseList{
+		{"Case-0", []int{}, "[]"},
+		{"Case-1", []int{1}, "[1]"},
+		{"Case-2", []int{1, 2}, "[2,1]"},
+		{"Case-3", []int{1, 2, 3}, "[3,2,1]"},
+		{"Case-4", []int{1, 2, 3, 4}, "[4,3,2,1]"},
+		{"Case-5", []int{1, 2, 3, 4, 5}, "[5,4,3,2,1]"},
+	}
+
+	for _, test := range tests {
+		list := BuildList(test.nodes...)
+		res := ReverseList(list)
+		resStr := res.PrintList()
+		if resStr != test.expectedResult {
+			t.Errorf("%s: %v != %v", test.caseName, resStr, test.expectedResult)
+		}
+	}
+}

@@ -324,3 +324,19 @@ func SwapTwoNearest(head *ListNode) *ListNode {
 
 	return newHead
 }
+
+func ReverseList(head *ListNode) *ListNode {
+	var newHead *ListNode
+	cur := head
+	var prev *ListNode
+
+	for cur != nil {
+		temp := cur.Next
+		cur.Next = prev
+		prev = cur
+		cur = temp
+	}
+
+	newHead = prev
+	return newHead
+}
