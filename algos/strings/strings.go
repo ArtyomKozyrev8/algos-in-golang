@@ -97,3 +97,33 @@ func IsSubsequence(s string, t string) bool {
 
 	return true
 }
+
+func FirstUniqueChar(s string) int {
+	values := make(map[int32][2]int)
+	for i, val := range s {
+		res, exist := values[val]
+		if exist == false {
+			// we store two values, first value is Index when letter first met
+			// second is number of such letters
+			values[val] = [2]int{i, 1}
+		} else {
+			values[val] = [2]int{res[0], res[1] + 1}
+		}
+	}
+
+	minIndex := -1
+	// map does not keep keys order
+	for _, v := range values {
+		if v[1] == 1 {
+			if minIndex == -1 {
+				minIndex = v[0]
+			} else {
+				if v[0] < minIndex {
+					minIndex = v[0]
+				}
+			}
+		}
+	}
+
+	return minIndex
+}

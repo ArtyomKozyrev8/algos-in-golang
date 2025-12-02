@@ -64,3 +64,24 @@ func TestIsSubsequence(t *testing.T) {
 		}
 	}
 }
+
+type testCaseIsSubstring struct {
+	caseName string
+	s        string
+	result   int
+}
+
+func TestFirstUniqueChar(t *testing.T) {
+	tests := []testCaseIsSubstring{
+		{"TestCase-1", "abc", 0},
+		{"TestCase-2", "aabb", -1},
+		{"TestCase-2", "helloworld", 0},
+	}
+
+	for _, testCase := range tests {
+		res := FirstUniqueChar(testCase.s)
+		if res != testCase.result {
+			t.Errorf("%s %v != %v", testCase.caseName, res, testCase.result)
+		}
+	}
+}
