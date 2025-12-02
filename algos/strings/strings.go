@@ -127,3 +127,35 @@ func FirstUniqueChar(s string) int {
 
 	return minIndex
 }
+
+func RepeatedSubstringPattern(s string) bool {
+	windowSize := 1
+	maxWindowSize := (len(s) - len(s)%2) / 2
+
+	for windowSize <= maxWindowSize {
+		subString := s[0:windowSize]
+		allFound := true
+		for i := 0; i < len(s); {
+			if i+windowSize > len(s) {
+				allFound = false
+				break
+			}
+
+			temp := s[i : i+windowSize]
+			if subString != temp {
+				allFound = false
+				break
+			} else {
+				i = i + windowSize
+			}
+		}
+
+		if allFound {
+			return true
+		} else {
+			windowSize += 1
+		}
+	}
+
+	return false
+}
