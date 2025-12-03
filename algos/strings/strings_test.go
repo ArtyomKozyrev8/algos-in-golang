@@ -85,3 +85,26 @@ func TestFirstUniqueChar(t *testing.T) {
 		}
 	}
 }
+
+type testRepeatedSubstringPattern struct {
+	caseName string
+	s        string
+	result   bool
+}
+
+func TestRepeatedSubstringPattern(t *testing.T) {
+	tests := []testRepeatedSubstringPattern{
+		{"TestCase-1", "ac", false},
+		{"TestCase-2", "a", true},
+		{"TestCase-3", "", false},
+		{"TestCase-4", "abab", true},
+		{"TestCase-5", "abcabcabc", true},
+		{"TestCase-5", "abcab", false},
+	}
+	for _, testCase := range tests {
+		res := RepeatedSubstringPattern(testCase.s)
+		if res != testCase.result {
+			t.Errorf("%s %v != %v", testCase.caseName, res, testCase.result)
+		}
+	}
+}

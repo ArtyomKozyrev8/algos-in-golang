@@ -129,6 +129,14 @@ func FirstUniqueChar(s string) int {
 }
 
 func RepeatedSubstringPattern(s string) bool {
+	if len(s) == 0 {
+		return false
+	}
+
+	if len(s) == 1 {
+		return true
+	}
+
 	windowSize := 1
 	maxWindowSize := (len(s) - len(s)%2) / 2
 
