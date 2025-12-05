@@ -1,6 +1,8 @@
 package strings
 
-import "maps"
+import (
+	"maps"
+)
 
 // LengthOfLongestSubstringWayOne  - we do not want to use rune, we have only english letters in string
 func LengthOfLongestSubstringWayOne(s string) int {
@@ -226,6 +228,77 @@ func FindAnagramsWayOne(s string, p string) []int {
 		}
 		minusCharVal := int(s[i])
 		curWindowNum -= minusCharVal
+	}
+
+	return results
+}
+
+func FindAnagramsWayTwo(s string, p string) []int {
+	if len(p) > len(s) {
+		return []int{}
+	}
+
+	pNum := 0
+	pComposition := make(map[int]int)
+
+	for i := 0; i < len(p); i++ {
+		pNum += int(p[i])
+		if _, exists := pComposition[int(p[i])]; !exists {
+			pComposition[int(p[i])] = 1
+		} else {
+			pComposition[int(p[i])] += 1
+		}
+	}
+
+	curNum := 0
+	curComposition := make(map[int]int)
+	var results []int
+
+	for i := 0; i < len(s); i++ {
+		if i+len(p) > len(s) {
+			break
+		}
+
+		window := s[i : i+len(p)]
+		if i == 0 {
+			for j := 0; j < len(window); j++ {
+				curNum += int(s[j])
+				if _, exists := curComposition[int(window[j])]; !exists {
+					curComposition[int(window[j])] = 1
+				} else {
+					curComposition[int(window[j])] += 1
+				}
+			}
+		} else {
+			toRemove := int(s[i-1])
+			toAdd := int(s[i+len(p)-1])
+
+			if _, exists := curComposition[toAdd]; !exists {
+				curComposition[toAdd] = 1
+			} else {
+				curComposition[toAdd] += 1
+			}
+			curNum += toAdd
+
+			if _, exists := curComposition[toRemove]; !exists {
+				// it can't be so ...
+			} else {
+				curComposition[toRemove] -= 1
+				if curComposition[toRemove] <= 0 {
+					delete(curComposition, toRemove)
+				}
+			}
+			curNum -= toRemove
+		}
+
+		if curNum == pNum {
+			if len(curComposition) == len(pComposition) {
+				if maps.Equal(curComposition, pComposition) {
+					results = append(results, i)
+				}
+
+			}
+		}
 	}
 
 	return results

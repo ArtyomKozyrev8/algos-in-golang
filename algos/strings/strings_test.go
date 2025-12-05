@@ -124,10 +124,31 @@ func TestFindAnagramsWayOne(t *testing.T) {
 		{"TestCase-1", "abc", "abc", []int{0}},
 		{"TestCase-2", "cbaebabacd", "abc", []int{0, 6}},
 		{"TestCase-3", "abab", "ab", []int{0, 1, 2}},
+		{"TestCase-4", "af", "eb", []int{}},
+		{"TestCase-5", "af", "ebc", []int{}},
+		{"TestCase-6", "abcde", "a", []int{0}},
 	}
 
 	for _, testCase := range tests {
 		res := FindAnagramsWayOne(testCase.s, testCase.p)
+		if !slices.Equal(res, testCase.result) {
+			t.Errorf("%s %v != %v", testCase.caseName, res, testCase.result)
+		}
+	}
+}
+
+func TestFindAnagramsWayTwo(t *testing.T) {
+	tests := []TestFindAnagrams{
+		{"TestCase-1", "abc", "abc", []int{0}},
+		{"TestCase-2", "cbaebabacd", "abc", []int{0, 6}},
+		{"TestCase-3", "abab", "ab", []int{0, 1, 2}},
+		{"TestCase-4", "af", "eb", []int{}},
+		{"TestCase-5", "af", "ebc", []int{}},
+		{"TestCase-6", "abcde", "a", []int{0}},
+	}
+
+	for _, testCase := range tests {
+		res := FindAnagramsWayTwo(testCase.s, testCase.p)
 		if !slices.Equal(res, testCase.result) {
 			t.Errorf("%s %v != %v", testCase.caseName, res, testCase.result)
 		}
