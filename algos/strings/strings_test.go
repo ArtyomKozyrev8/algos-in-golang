@@ -1,6 +1,9 @@
 package strings
 
-import "testing"
+import (
+	"slices"
+	"testing"
+)
 
 func TestLengthOfLongestSubstringWayOne(t *testing.T) {
 	var tests = struct {
@@ -104,6 +107,28 @@ func TestRepeatedSubstringPattern(t *testing.T) {
 	for _, testCase := range tests {
 		res := RepeatedSubstringPattern(testCase.s)
 		if res != testCase.result {
+			t.Errorf("%s %v != %v", testCase.caseName, res, testCase.result)
+		}
+	}
+}
+
+type TestFindAnagrams struct {
+	caseName string
+	s        string
+	p        string
+	result   []int
+}
+
+func TestFindAnagramsWayOne(t *testing.T) {
+	tests := []TestFindAnagrams{
+		{"TestCase-1", "abc", "abc", []int{0}},
+		{"TestCase-2", "cbaebabacd", "abc", []int{0, 6}},
+		{"TestCase-3", "abab", "ab", []int{0, 1, 2}},
+	}
+
+	for _, testCase := range tests {
+		res := FindAnagramsWayOne(testCase.s, testCase.p)
+		if !slices.Equal(res, testCase.result) {
 			t.Errorf("%s %v != %v", testCase.caseName, res, testCase.result)
 		}
 	}

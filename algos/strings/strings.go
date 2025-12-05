@@ -1,5 +1,7 @@
 package strings
 
+import "maps"
+
 // LengthOfLongestSubstringWayOne  - we do not want to use rune, we have only english letters in string
 func LengthOfLongestSubstringWayOne(s string) int {
 	longestUniqueCharsSubstringsLen := 0
@@ -166,4 +168,65 @@ func RepeatedSubstringPattern(s string) bool {
 	}
 
 	return false
+}
+
+func FindAnagramsWayOne(s string, p string) []int {
+	var results []int
+
+	var pNum int = 0                  // sum of chars
+	pComposition := make(map[int]int) // composition of letters un p
+
+	for i := 0; i < len(p); i++ {
+		pNum += int(p[i])
+		if _, exists := pComposition[int(p[i])]; !exists {
+			pComposition[int(p[i])] = 1
+		} else {
+			pComposition[int(p[i])] += 1
+		}
+	}
+
+	isFirstTime := true
+	var curWindowNum int = 0
+
+	for i := 0; i < len(s); i++ {
+		if i+len(p)-1 >= len(s) {
+			break
+		}
+
+		if isFirstTime {
+			isFirstTime = false
+			for j := 0; j < len(s[i:i+len(p)]); j++ {
+				curWindowNum += int(s[i : i+len(p)][j])
+			}
+		} else {
+			charVal := int(s[i+len(p)-1])
+			curWindowNum = curWindowNum + charVal
+		}
+
+		if curWindowNum == pNum {
+			allSame := true
+			localMapComposition := make(map[int]int)
+			maps.Copy(localMapComposition, pComposition)
+			for j := 0; j < len(s[i:i+len(p)]); j++ {
+				val, exists := localMapComposition[int(s[i : i+len(p)][j])]
+				localMapComposition[int(s[i : i+len(p)][j])] = val - 1
+				if val-1 < 0 {
+					allSame = false
+					break
+				}
+
+				if !exists {
+					allSame = false
+					break
+				}
+			}
+			if allSame {
+				results = append(results, i)
+			}
+		}
+		minusCharVal := int(s[i])
+		curWindowNum -= minusCharVal
+	}
+
+	return results
 }
