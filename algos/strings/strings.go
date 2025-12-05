@@ -303,3 +303,34 @@ func FindAnagramsWayTwo(s string, p string) []int {
 
 	return results
 }
+
+func reverseString(s string) string {
+	runes := []rune(s)
+	for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
+		runes[i], runes[j] = runes[j], runes[i]
+	}
+	return string(runes)
+}
+
+func LongestPalindrome(s string) string {
+	if len(s) < 2 {
+		return s
+	}
+
+	reversedS := reverseString(s)
+
+	windowSize := len(s)
+	for {
+		j := len(s) - windowSize
+		for i := 0; i < len(s)-windowSize+1; i++ {
+			curS := s[i : i+windowSize]
+			curR := reversedS[j : j+windowSize]
+			if curS == curR {
+				return curS
+			}
+			j--
+		}
+
+		windowSize -= 1
+	}
+}

@@ -154,3 +154,27 @@ func TestFindAnagramsWayTwo(t *testing.T) {
 		}
 	}
 }
+
+type TestLongestPalindromeTwo struct {
+	caseName string
+	s        string
+	result   string
+}
+
+func TestLongestPalindrome(t *testing.T) {
+	tests := []TestLongestPalindromeTwo{
+		{"TestCase-1", "babad", "bab"},
+		{"TestCase-2", "cbbd", "bb"},
+		{"TestCase-3", "abb", "bb"},
+		{"TestCase-4", "a", "a"},
+		{"TestCase-5", "", ""},
+		{"TestCase-5", "abcdef", "a"},
+	}
+
+	for _, testCase := range tests {
+		res := LongestPalindrome(testCase.s)
+		if res != testCase.result {
+			t.Errorf("%s %v != %v", testCase.caseName, res, testCase.result)
+		}
+	}
+}
