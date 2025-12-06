@@ -366,3 +366,19 @@ func IsValidParenthesesOrderString(s string) bool {
 	}
 	return true
 }
+
+func CheckSimpleParentheses(s string) bool {
+	var chars []rune
+	for _, char := range s {
+		if char == '(' {
+			chars = append(chars, '(')
+		} else {
+			if len(chars) == 0 {
+				return false
+			}
+			chars = chars[:len(chars)-1]
+		}
+	}
+
+	return len(chars) == 0
+}

@@ -204,3 +204,27 @@ func TestIsValidParenthesesOrderString(t *testing.T) {
 		}
 	}
 }
+
+type testCheckSimpleParentheses struct {
+	caseName string
+	s        string
+	result   bool
+}
+
+func TestCheckSimpleParentheses(t *testing.T) {
+	tests := []testCheckSimpleParentheses{
+		{"TestCase-1", "()", true},
+		{"TestCase-2", "(())", true},
+		{"TestCase-3", "(", false},
+		{"TestCase-4", ")", false},
+		{"TestCase-5", "())", false},
+		{"TestCase-6", "(()", false},
+	}
+
+	for _, testCase := range tests {
+		res := CheckSimpleParentheses(testCase.s)
+		if res != testCase.result {
+			t.Errorf("%s %v != %v", testCase.caseName, res, testCase.result)
+		}
+	}
+}
