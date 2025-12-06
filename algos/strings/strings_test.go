@@ -155,24 +155,50 @@ func TestFindAnagramsWayTwo(t *testing.T) {
 	}
 }
 
-type TestLongestPalindromeTwo struct {
+type testLongestPalindromeTwo struct {
 	caseName string
 	s        string
 	result   string
 }
 
 func TestLongestPalindrome(t *testing.T) {
-	tests := []TestLongestPalindromeTwo{
+	tests := []testLongestPalindromeTwo{
 		{"TestCase-1", "babad", "bab"},
 		{"TestCase-2", "cbbd", "bb"},
 		{"TestCase-3", "abb", "bb"},
 		{"TestCase-4", "a", "a"},
 		{"TestCase-5", "", ""},
-		{"TestCase-5", "abcdef", "a"},
+		{"TestCase-6", "abcdef", "a"},
 	}
 
 	for _, testCase := range tests {
 		res := LongestPalindrome(testCase.s)
+		if res != testCase.result {
+			t.Errorf("%s %v != %v", testCase.caseName, res, testCase.result)
+		}
+	}
+}
+
+type testIsValidParenthesesOrderString struct {
+	caseName string
+	s        string
+	result   bool
+}
+
+func TestIsValidParenthesesOrderString(t *testing.T) {
+	tests := []testIsValidParenthesesOrderString{
+		{"TestCase-1", "()", true},
+		{"TestCase-2", "()[]{}", true},
+		{"TestCase-3", "(]", false},
+		{"TestCase-4", "([])", true},
+		{"TestCase-5", "([)]", false},
+		{"TestCase-6", "]", false},
+		{"TestCase-7", "(", false},
+		{"TestCase-7", "(-)", false},
+	}
+
+	for _, testCase := range tests {
+		res := IsValidParenthesesOrderString(testCase.s)
 		if res != testCase.result {
 			t.Errorf("%s %v != %v", testCase.caseName, res, testCase.result)
 		}

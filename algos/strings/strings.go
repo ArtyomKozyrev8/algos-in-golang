@@ -334,3 +334,35 @@ func LongestPalindrome(s string) string {
 		windowSize -= 1
 	}
 }
+
+func IsValidParenthesesOrderString(s string) bool {
+	var storage []rune
+
+	charMap := map[rune]int{
+		'(': 1, '[': 2, '{': 3, ')': -1, ']': -2, '}': -3,
+	}
+
+	for _, char := range s {
+		val, exists := charMap[char]
+		if !exists {
+			return false // unexpected value
+		}
+		if val > 0 {
+			storage = append(storage, char)
+		} else {
+			if len(storage) == 0 {
+				return false
+			}
+			lastChar := storage[len(storage)-1]
+			if charMap[lastChar] != val*-1 {
+				return false
+			}
+			storage = storage[:len(storage)-1]
+		}
+	}
+
+	if len(storage) != 0 {
+		return false
+	}
+	return true
+}
