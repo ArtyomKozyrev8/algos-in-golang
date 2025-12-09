@@ -217,3 +217,26 @@ func TestReverseList(t *testing.T) {
 		}
 	}
 }
+
+type testDeleteDuplicates struct {
+	caseName       string
+	nodes          []int
+	expectedResult string
+}
+
+func TestDeleteDuplicates(t *testing.T) {
+	tests := []testDeleteDuplicates{
+		{"Case-1", []int{1}, "[1]"},
+		{"Case-2", []int{1, 1, 1, 2}, "[1,2]"},
+		{"Case-3", []int{1, 1, 2, 2, 2, 2, 2, 3, 3, 3}, "[1,2,3]"},
+	}
+
+	for _, test := range tests {
+		list := BuildList(test.nodes...)
+		res := DeleteDuplicates(list)
+		resStr := res.PrintList()
+		if resStr != test.expectedResult {
+			t.Errorf("%s: %v != %v", test.caseName, resStr, test.expectedResult)
+		}
+	}
+}

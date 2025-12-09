@@ -340,3 +340,19 @@ func ReverseList(head *ListNode) *ListNode {
 	newHead = prev
 	return newHead
 }
+
+func DeleteDuplicates(head *ListNode) *ListNode {
+	firstNode := head
+	var prev *ListNode
+	cur := head
+	for cur != nil {
+		if prev != nil && prev.Val == cur.Val {
+			prev.Next = cur.Next
+			cur = cur.Next
+		} else {
+			prev = cur
+			cur = cur.Next
+		}
+	}
+	return firstNode
+}
