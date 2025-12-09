@@ -175,3 +175,40 @@ func IsPalindromeNumber(x int) bool {
 
 	return true
 }
+
+func SearchInsertIndexReturn(nums []int, target int) int {
+	if target > nums[len(nums)-1] {
+		return len(nums)
+	}
+
+	if target < nums[0] {
+		return 0
+	}
+
+	newNums := nums
+	globalIndexLeft := 0
+	for {
+		if len(newNums) == 1 {
+			if newNums[0] == target {
+				return globalIndexLeft
+			} else if newNums[0] < target {
+				return globalIndexLeft + 1
+			} else {
+				return globalIndexLeft
+			}
+		}
+
+		middleIndex := (len(newNums) - len(newNums)%2) / 2
+		if middleIndex == 0 {
+			return globalIndexLeft
+		}
+		if nums[middleIndex] == target {
+			return globalIndexLeft + middleIndex
+		} else if newNums[middleIndex] > target {
+			newNums = newNums[:middleIndex]
+		} else {
+			newNums = newNums[middleIndex:]
+			globalIndexLeft += middleIndex
+		}
+	}
+}

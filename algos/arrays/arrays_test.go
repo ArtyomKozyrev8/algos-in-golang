@@ -162,3 +162,30 @@ func TestIsPalindromeNumber(t *testing.T) {
 		}
 	}
 }
+
+type testSearchInsertIndexReturn struct {
+	testName    string
+	inputArray  []int
+	target      int
+	expectedRes int
+}
+
+func TestSearchInsertIndex(t *testing.T) {
+	testCases := []testSearchInsertIndexReturn{
+		{"Case-1", []int{1, 3, 5, 6}, 5, 2},
+		{"Case-2", []int{1, 3, 5, 6}, 2, 1},
+		{"Case-3", []int{1, 3, 5, 6}, 7, 4},
+		{"Case-4", []int{1}, 1, 0},
+		{"Case-5", []int{1}, 0, 0},
+		{"Case-6", []int{1, 2, 3}, 2, 1},
+		{"Case-7", []int{1}, 2, 1},
+		{"Case-8", []int{1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20}, 9, 8},
+	}
+
+	for _, testCase := range testCases {
+		res := SearchInsertIndexReturn(testCase.inputArray, testCase.target)
+		if testCase.expectedRes != res {
+			t.Errorf("%s: %v != %v", testCase.testName, res, testCase.expectedRes)
+		}
+	}
+}
