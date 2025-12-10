@@ -228,3 +228,25 @@ func TestCheckSimpleParentheses(t *testing.T) {
 		}
 	}
 }
+
+type testWordBreak struct {
+	caseName string
+	s        string
+	wordDict []string
+	result   bool
+}
+
+func TestWordBreak(t *testing.T) {
+	tests := []testWordBreak{
+		{"TestCase-1", "abc", []string{"abc"}, true},
+		{"TestCase-2", "abcabc", []string{"abc"}, true},
+		{"TestCase-3", "abcabc", []string{"ab"}, false},
+		{"TestCase-4", "abcabc", []string{"ab"}, false},
+	}
+	for _, testCase := range tests {
+		res := WordBreak(testCase.s, testCase.wordDict)
+		if res != testCase.result {
+			t.Errorf("%s %v != %v", testCase.caseName, res, testCase.result)
+		}
+	}
+}

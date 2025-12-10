@@ -382,3 +382,30 @@ func CheckSimpleParentheses(s string) bool {
 
 	return len(chars) == 0
 }
+
+func WordBreak(s string, wordDict []string) bool {
+	visitedIndexes := make(map[int]bool, len(wordDict)) // allows not to check the same strings again
+	startIndexes := []int{0}                            // we do not need to store the whole string, only index of first letter is enough
+	for len(startIndexes) > 0 {
+		var newStartIndexes []int
+		for _, index := range startIndexes {
+			for _, word := range wordDict {
+				if len(s[index:]) >= len(word) && word == s[index:index+len(word)] {
+					newIndex := index + len(word)
+					if newIndex == len(s) {
+						return true
+					}
+					if !visitedIndexes[newIndex] {
+						visitedIndexes[newIndex] = true
+						newStartIndexes = append(newStartIndexes, newIndex)
+					}
+				}
+			}
+		}
+		if len(newStartIndexes) == 0 {
+			return false
+		}
+		startIndexes = newStartIndexes
+	}
+	return true
+}
