@@ -250,3 +250,30 @@ func TestWordBreak(t *testing.T) {
 		}
 	}
 }
+
+type testLengthOfLastWord struct {
+	caseName string
+	s        string
+	result   int
+}
+
+func TestLengthOfLastWord(t *testing.T) {
+	tests := []testLengthOfLastWord{
+		{"TestCase-1", "abc", 3},
+		{"TestCase-2", "abcabc    ", 6},
+		{"TestCase-3", "a  ", 1},
+		{"TestCase-4", "a", 1},
+		{"TestCase-5", "    a", 1},
+		{"TestCase-6", "      abc", 3},
+		{"TestCase-7", "      abc      ", 3},
+		{"TestCase-8", "  abc     eeed   ee  a  ", 1},
+		{"TestCase-9", "", 0},
+	}
+
+	for _, testCase := range tests {
+		res := LengthOfLastWord(testCase.s)
+		if res != testCase.result {
+			t.Errorf("%s %v != %v", testCase.caseName, res, testCase.result)
+		}
+	}
+}

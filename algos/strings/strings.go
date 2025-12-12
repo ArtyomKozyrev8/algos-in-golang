@@ -409,3 +409,36 @@ func WordBreak(s string, wordDict []string) bool {
 	}
 	return true
 }
+
+func LengthOfLastWord(s string) int {
+	rightIndex := -1
+	leftIndex := -1
+	space := " "[0]
+	for i := len(s) - 1; i >= 0; i-- {
+		if rightIndex > -1 && leftIndex > -1 {
+			break
+		}
+
+		if s[i] != space {
+			if rightIndex == -1 {
+				rightIndex = i
+			}
+		} else {
+			if leftIndex == -1 {
+				if rightIndex != -1 {
+					leftIndex = i
+				}
+			}
+		}
+	}
+
+	if rightIndex == -1 {
+		return 0
+	}
+
+	if leftIndex == -1 {
+		return len(s[:rightIndex+1])
+	}
+
+	return len(s[leftIndex:rightIndex])
+}
