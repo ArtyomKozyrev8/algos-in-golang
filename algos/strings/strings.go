@@ -2,6 +2,7 @@ package strings
 
 import (
 	"maps"
+	"unicode"
 )
 
 // LengthOfLongestSubstringWayOne  - we do not want to use rune, we have only english letters in string
@@ -441,4 +442,28 @@ func LengthOfLastWord(s string) int {
 	}
 
 	return len(s[leftIndex:rightIndex])
+}
+
+func IsPalindrome(s string) bool {
+	var strList []rune
+	for _, char := range s {
+		if unicode.IsLetter(char) {
+			if unicode.IsUpper(char) {
+				strList = append(strList, unicode.ToLower(char))
+			} else {
+				strList = append(strList, char)
+			}
+		}
+		if unicode.IsDigit(char) {
+			strList = append(strList, char)
+		}
+	}
+
+	for left, right := 0, len(strList)-1; right > left; left, right = left+1, right-1 {
+		if strList[left] != strList[right] {
+			return false
+		}
+	}
+
+	return true
 }

@@ -277,3 +277,27 @@ func TestLengthOfLastWord(t *testing.T) {
 		}
 	}
 }
+
+type testIsPalindrome struct {
+	caseName string
+	s        string
+	result   bool
+}
+
+func TestIsPalindrome(t *testing.T) {
+	tests := []testIsPalindrome{
+		{"TestCase-1", "aa bb aa", true},
+		{"TestCase-2", "0 p 0", true},
+		{"TestCase-3", "0p", false},
+		{"TestCase-4", "A man, a plan, a canal: Panama", true},
+		{"TestCase-5", "race a car", false},
+		{"TestCase-6", "      ", true},
+	}
+
+	for _, testCase := range tests {
+		res := IsPalindrome(testCase.s)
+		if res != testCase.result {
+			t.Errorf("%s %v != %v", testCase.caseName, res, testCase.result)
+		}
+	}
+}
