@@ -212,3 +212,42 @@ func SearchInsertIndexReturn(nums []int, target int) int {
 		}
 	}
 }
+
+func CoinChangeBreadthFirst(coins []int, amount int) int {
+	if amount == 0 {
+		return 0
+	}
+
+	amounts := []int{amount}
+	minNumberOfCoins := -1
+
+	storage := make(map[int]bool) // key - restAmount
+
+	coinsNumber := 0
+	for len(amounts) > 0 {
+		var newAmounts []int
+		for _, amountLocal := range amounts {
+			for _, coin := range coins {
+				restAmount := amountLocal - coin
+
+				if restAmount != 0 {
+					if _, exists := storage[restAmount]; exists {
+						continue
+					}
+				}
+
+				if restAmount == 0 {
+					return coinsNumber + 1
+				}
+
+				if restAmount > 0 {
+					newAmounts = append(newAmounts, restAmount)
+					storage[restAmount] = true
+				}
+			}
+		}
+		amounts = newAmounts
+		coinsNumber += 1
+	}
+	return minNumberOfCoins
+}
