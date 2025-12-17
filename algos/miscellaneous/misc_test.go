@@ -22,3 +22,25 @@ func TestCountPartitionsEvenSum(t *testing.T) {
 		}
 	}
 }
+
+type testClimbStairsRecursive struct {
+	testName string
+	number   int
+	result   int
+}
+
+func TestClimbStairsRecursive(t *testing.T) {
+	tests := []testClimbStairsRecursive{
+		{"TestCase1", 3, 3},
+		{"TestCase2", 1, 1},
+		{"TestCase3", 2, 2},
+		{"TestCase4", 4, 5},
+	}
+
+	for _, test := range tests {
+		results := ClimbStairsRecursive(test.number)
+		if results != test.result {
+			t.Errorf("%s: got %d, want %d", test.testName, results, test.result)
+		}
+	}
+}

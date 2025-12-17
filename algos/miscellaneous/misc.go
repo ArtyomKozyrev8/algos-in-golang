@@ -20,3 +20,29 @@ func CountPartitionsEvenSum(nums []int) int {
 	}
 	return evenCounter
 }
+
+func ClimbStairsRecursive(n int) int {
+	storage := make(map[int]int)
+	stepSizeOne := 1
+	stepSizeTwo := 2
+
+	var Inner func(x int) int
+
+	Inner = func(x int) int {
+		if x == 0 {
+			return 1
+		}
+		if x < 0 {
+			return 0
+		}
+
+		if _, exist := storage[x]; exist {
+			return storage[x]
+		} else {
+			storage[x] = Inner(x-stepSizeOne) + Inner(x-stepSizeTwo)
+			return storage[x]
+		}
+	}
+
+	return Inner(n)
+}
