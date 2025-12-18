@@ -251,3 +251,39 @@ func CoinChangeBreadthFirst(coins []int, amount int) int {
 	}
 	return minNumberOfCoins
 }
+
+func CoinChangeRecursionAttemptOne(coins []int, amount int) int {
+	var innerFunc func(amountL int, usedCoinsNumber int)
+
+	seenWays := make(map[int]int)
+	minNumberOfCoins := -1
+
+	innerFunc = func(amountL int, usedCoinsNumberL int) {
+		if amountL == 0 {
+			if minNumberOfCoins == -1 {
+				minNumberOfCoins = usedCoinsNumberL
+			} else {
+				if usedCoinsNumberL < minNumberOfCoins {
+					minNumberOfCoins = usedCoinsNumberL
+				}
+			}
+		}
+
+		if amountL < 0 {
+			return
+		}
+
+		for _, coin := range coins {
+			val, exist := seenWays[amountL-coin]
+			if val > usedCoinsNumberL+1 || !exist {
+				if amountL-coin >= 0 {
+					seenWays[amountL-coin] = usedCoinsNumberL + 1
+					innerFunc(amountL-coin, usedCoinsNumberL+1)
+				}
+			}
+		}
+	}
+
+	innerFunc(amount, 0)
+	return minNumberOfCoins
+}

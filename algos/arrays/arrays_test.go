@@ -213,3 +213,20 @@ func TestCoinChangeBreadthFirst(t *testing.T) {
 		}
 	}
 }
+
+func TestCoinCoinChangeRecursionAttemptOne(t *testing.T) {
+	testCases := []TestCoinChange{
+		{"Case-1", []int{1, 2, 5}, 11, 3},
+		{"Case-2", []int{2}, 3, -1},
+		{"Case-3", []int{1}, 0, 0},
+		{"Case-4", []int{2, 5, 10, 1}, 27, 4},
+		{"Case-5", []int{3, 7, 405, 436}, 8839, 25},
+	}
+
+	for _, testCase := range testCases {
+		result := CoinChangeRecursionAttemptOne(testCase.coins, testCase.amount)
+		if result != testCase.coinsExchangeNumber {
+			t.Errorf("%s: %v != %v", testCase.testName, result, testCase.coinsExchangeNumber)
+		}
+	}
+}
